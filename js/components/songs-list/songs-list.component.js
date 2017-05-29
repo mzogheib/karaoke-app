@@ -11,7 +11,8 @@
             controller: controller,
             templateUrl: './js/components/songs-list/songs-list.html',
             bindings: {
-                songs: '<'
+                songs: '<',
+                onRowClick: '&'
             }
         };
     }
@@ -20,9 +21,14 @@
         var ctrl = this;
 
         ctrl.$onInit = onInit;
+        ctrl.$onChanges = onChanges;
 
         function onInit () {
-            console.log('songs-list controller', ctrl.songs);
+            console.log('songs-list controller onInit', ctrl.songs);
+        }
+
+        function onChanges () {
+            console.log('songs-list controller onChanges', ctrl.songs);
         }
     }
 })();

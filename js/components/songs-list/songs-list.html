@@ -1,1 +1,6 @@
-<p>SONGS LIST</p>
+<p ng-if='!$ctrl.songs.length'>None</p>
+<ul ng-if='$ctrl.songs.length'>
+    <li ng-repeat='song in $ctrl.songs' ng-click='$ctrl.onRowClick({ song: song })'>
+        {{ song.name }}
+    </li>
+</ul>

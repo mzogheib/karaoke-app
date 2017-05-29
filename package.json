@@ -1,0 +1,19 @@
+{
+  "name": "karaoke-app",
+  "version": "0.1.0",
+  "description": "Rate your favourite karaoke songs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "karaoke",
+    "music",
+    "party"
+  ],
+  "author": "Marwan Zogheib <mzogheib@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "angular-spotify": "^1.4.3"
+  }
+}

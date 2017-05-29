@@ -4,10 +4,15 @@
     angular
         .module('karaokeApp', [
             'ui.router',
+            'spotify',
 
             'services.songs',
 
+            // Routes
+            'component.addSong',
             'component.songs',
+
+            'component.songSearch',
             'component.songsList'
         ])
         .config(config);
@@ -16,7 +21,7 @@
         $stateProvider
             .state('app', {
                 abstract: true,
-                template: '<p>NAVIGATION PLACEHOLDER</p><div ui-view></div>'
+                templateUrl: './js/app.html'
             });
 
         $urlRouterProvider

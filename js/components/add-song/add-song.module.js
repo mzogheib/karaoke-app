@@ -2,15 +2,15 @@
     'use strict';
 
     angular
-        .module('component.songs', [
+        .module('component.addSong', [
         ])
         .config(config);
 
     function config ($stateProvider) {
         $stateProvider
-            .state('app.songs', {
-                url: '/songs',
-                template: '<songs></songs>'
+            .state('app.addSong', {
+                url: '/add-song',
+                template: '<add-song></add-song>'
             });
     }
 })();

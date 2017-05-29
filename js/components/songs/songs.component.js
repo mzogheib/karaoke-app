@@ -18,10 +18,19 @@
 
         var ctrl = this;
 
+        ctrl.search = search;
+
         ctrl.$onInit = onInit;
 
         function onInit () {
             ctrl.songs = songsService.getSongs();
+        }
+
+        function search (query) {
+            songsService.searchLibrary(query)
+                .then(function (data) {
+                    console.log(data)
+                });
         }
     }
 })();
