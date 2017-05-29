@@ -9,7 +9,7 @@
 
         return {
             controller: controller,
-            templateUrl: './js/components/song-search/song-search.html',
+            templateUrl: './app/components/song-search/song-search.html',
             bindings: {
                 onSubmit: '&'
             }

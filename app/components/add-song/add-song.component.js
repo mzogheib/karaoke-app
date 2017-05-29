@@ -8,7 +8,7 @@
     function component () {
         return {
             controller: controller,
-            templateUrl: './js/components/add-song/add-song.html',
+            templateUrl: './app/components/add-song/add-song.html',
             bindings: {
 
             }
