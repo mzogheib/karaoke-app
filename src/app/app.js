@@ -21,7 +21,7 @@
         $stateProvider
             .state('app', {
                 abstract: true,
-                templateUrl: './app/app.html'
+                templateUrl: 'templates/app.html'
             });
 
         $urlRouterProvider
