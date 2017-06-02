@@ -1,5 +1,6 @@
 var argv = require('minimist')(process.argv.slice(2));
 var concat = require('gulp-concat');
+var concatCSS = require('gulp-concat-css');
 var del = require('del');
 var gulp = require('gulp');
 var gulpif = require('gulp-if');
@@ -18,6 +19,7 @@ var paths = {
 
     appFiles: {
         root: 'src/*.*',
+        css: 'src/**/*.css',
         fonts: 'src/fonts/**/*',
         js: [
             'src/app/**/*.module.js',
@@ -62,12 +64,20 @@ gulp.task('watch', ['build'], function () {
         gulp.start('copy');
     });
 
+    watch(paths.appFiles.js, function () {
+        gulp.start('appJS');
+    });
+
     watch(paths.vendorFiles.js, function () {
         gulp.start('vendorJS');
     });
 
-    watch(paths.appFiles.js, function () {
-        gulp.start('appJS');
+    watch(paths.appFiles.css, function () {
+        gulp.start('appCSS');
+    });
+
+    watch(paths.vendorFiles.css, function () {
+        gulp.start('vendorCSS');
     });
 
     watch(paths.appFiles.templates, function () {
@@ -79,7 +89,7 @@ gulp.task('watch', ['build'], function () {
  * Build task
  */
 gulp.task('build', false, function (cb) {
-    runSequence('clean', ['appJS', 'vendorJS', 'copy'], cb);
+    runSequence('clean', ['appJS', 'vendorJS', 'appCSS', 'vendorCSS', 'copy'], cb);
 });
 
 /**
@@ -112,14 +122,31 @@ gulp.task('vendorJS', false, function () {
 });
 
 /**
+ * appCSS
+ * Concat app CSS files to build. Minify if going to prod.
+ */
+gulp.task('appCSS', function () {
+    return gulp.src(paths.appFiles.css)
+        .pipe(concatCSS('app.css'))
+        .pipe(gulp.dest(paths.dest.css));
+});
+
+/**
+ * vendorCSS
+ * Concat vendor CSS files to build. Minify if going to prod.
+ */
+gulp.task('vendorCSS', function () {
+    return gulp.src(paths.vendorFiles.css)
+        .pipe(concatCSS('vendor.css'))
+        .pipe(gulp.dest(paths.dest.css));
+});
+
+/**
  * Copy
  */
 gulp.task('copy', false, function () {
     gulp.src(paths.appFiles.root)
         .pipe(gulp.dest(paths.dest.root));
-
-    gulp.src(paths.vendorFiles.css)
-        .pipe(gulp.dest(paths.dest.css));
 
     gulp.src(paths.appFiles.fonts)
         .pipe(gulp.dest(paths.dest.fonts));
