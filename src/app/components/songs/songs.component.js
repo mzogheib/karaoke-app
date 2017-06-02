@@ -14,8 +14,6 @@
     }
 
     function controller (songsService) {
-        console.log('songs controller');
-
         var ctrl = this;
 
         ctrl.search = search;

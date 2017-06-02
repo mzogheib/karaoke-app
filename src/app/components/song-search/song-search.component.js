@@ -24,7 +24,6 @@
         ctrl.$onInit = onInit;
 
         function onInit () {
-            console.log('songs-search controller');
         }
 
         function submit () {

@@ -5,17 +5,13 @@
         .module('services.songs', [])
         .service('songsService', service);
 
-    function service (Spotify) {
+    function service () {
         var cache = {
             mySongs: []
         };
 
         this.getSongs = function () {
             return cache.mySongs;
-        }
-
-        this.searchSongsProvider = function (query) {
-            return Spotify.search(query, 'artist,track');
         }
 
         this.addToLibrary = function (song) {

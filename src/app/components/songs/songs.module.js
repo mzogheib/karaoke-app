@@ -10,6 +10,7 @@
         $stateProvider
             .state('app.songs', {
                 url: '/songs',
+                title: 'My Songs',
                 template: '<songs></songs>'
             });
     }

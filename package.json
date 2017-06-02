@@ -16,14 +16,15 @@
   "devDependencies": {
     "@uirouter/angularjs": "^1.0.3",
     "angular": "^1.6.4",
-    "angular-spotify": "^1.4.3",
+    "angular-animate": "^1.6.4",
+    "angular-aria": "^1.6.4",
+    "angular-material": "^1.1.4",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
     "gulp-if": "^2.0.2",
     "gulp-uglify": "^3.0.0",
     "gulp-watch": "^4.3.11",
-    "material-design-lite": "^1.3.0",
     "run-sequence": "^1.2.2"
   }
 }

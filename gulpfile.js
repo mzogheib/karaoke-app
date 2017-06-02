@@ -28,15 +28,16 @@ var paths = {
 
     vendorFiles: {
         css: [
-            'node_modules/material-design-lite/material.min.css'
+            'node_modules/angular-material/angular-material.min.css'
         ],
         fonts: [
         ],
         js: [
             'node_modules/angular/angular.min.js',
             'node_modules/@uirouter/angularjs/release/angular-ui-router.min.js',
-            'node_modules/angular-spotify/dist/angular-spotify.min.js',
-            'node_modules/material-design-lite/material.min.js'
+            'node_modules/angular-material/angular-material.min.js',
+            'node_modules/angular-animate/angular-animate.js',
+            'node_modules/angular-aria/angular-aria.min.js'
         ]
     }
 };

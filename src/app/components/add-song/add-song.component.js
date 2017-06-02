@@ -16,8 +16,6 @@
     }
 
     function controller (songsService) {
-        console.log('add-song controller');
-
         var ctrl = this;
 
         ctrl.search = search;
@@ -37,7 +35,6 @@
         }
 
         function addToLibrary (song) {
-            console.log('addToLibrary', song);
             songsService.addToLibrary(song);
         }
     }
