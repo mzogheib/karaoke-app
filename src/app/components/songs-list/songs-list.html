@@ -1,6 +1,11 @@
 <p ng-if='!$ctrl.songs.length'>None</p>
-<ul ng-if='$ctrl.songs.length'>
-    <li ng-repeat='song in $ctrl.songs' ng-click='$ctrl.onRowClick({ song: song })'>
-        {{ song.name }}
-    </li>
-</ul>
+
+<md-list ng-if='$ctrl.songs.length'>
+    <md-list-item ng-repeat="song in $ctrl.songs">
+        <md-button layout="row" flex>
+            <i class="material-icons">account_circle</i>
+            <span>{{ song.artist.name }} - {{ song.title }}</span>
+            <span>Average Rating: {{ song.averageRating }}</span>
+        </md-button>
+    </md-list-item>
+</md-list>

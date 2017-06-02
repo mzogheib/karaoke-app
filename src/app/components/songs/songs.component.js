@@ -16,19 +16,15 @@
     function controller (songsService) {
         var ctrl = this;
 
-        ctrl.search = search;
-
         ctrl.$onInit = onInit;
 
         function onInit () {
-            ctrl.songs = songsService.getSongs();
-        }
-
-        function search (query) {
-            songsService.searchLibrary(query)
+            songsService.getSongs()
                 .then(function (data) {
-                    console.log(data)
+                    console.log(data);
+                    ctrl.songs = data;
                 });
         }
+
     }
 })();
