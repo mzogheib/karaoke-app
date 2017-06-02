@@ -2,9 +2,12 @@ var argv = require('minimist')(process.argv.slice(2));
 var concat = require('gulp-concat');
 var concatCSS = require('gulp-concat-css');
 var del = require('del');
+var flatten = require('gulp-flatten');
 var gulp = require('gulp');
 var gulpif = require('gulp-if');
+var merge = require('merge-stream');
 var runSequence = require('run-sequence');
+var templateCache = require('gulp-angular-templatecache');
 var uglify = require('gulp-uglify');
 var watch = require('gulp-watch');
 
@@ -104,7 +107,13 @@ gulp.task('clean', false, function () {
  * Concat app JS files to build. Minify if going to prod.
  */
 gulp.task('appJS', false, function () {
-    return gulp.src(paths.appFiles.js)
+    var templates = gulp.src(paths.appFiles.templates)
+        .pipe(flatten())
+        .pipe(templateCache({ standalone: true }));
+
+    var js = gulp.src(paths.appFiles.js);
+
+    return merge(js, templates)
         .pipe(concat('app.js'))
         .pipe(gulpif(PROD, uglify()))
         .pipe(gulp.dest(paths.dest.js));
@@ -153,7 +162,4 @@ gulp.task('copy', false, function () {
 
     gulp.src(paths.vendorFiles.fonts)
         .pipe(gulp.dest(paths.dest.fonts));
-
-    gulp.src(paths.appFiles.templates)
-        .pipe(gulp.dest(paths.dest.templates));
 });

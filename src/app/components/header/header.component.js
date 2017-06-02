@@ -9,7 +9,7 @@
 
         return {
             controller: controller,
-            templateUrl: 'templates/components/header/header.html',
+            templateUrl: 'header.html',
             bindings: {}
         };
     }

@@ -21,11 +21,14 @@
     "angular-material": "^1.1.4",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
+    "gulp-angular-templatecache": "^2.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-concat-css": "^2.3.0",
+    "gulp-flatten": "^0.3.1",
     "gulp-if": "^2.0.2",
     "gulp-uglify": "^3.0.0",
     "gulp-watch": "^4.3.11",
+    "merge-stream": "^1.0.1",
     "run-sequence": "^1.2.2"
   }
 }

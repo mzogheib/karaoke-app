@@ -6,6 +6,8 @@
             'ui.router',
             'ngMaterial',
 
+            'templates',
+
             'services.songs',
 
             // Routes
@@ -23,7 +25,7 @@
         $stateProvider
             .state('app', {
                 abstract: true,
-                templateUrl: 'templates/app.html'
+                templateUrl: 'app.html'
             });
 
         $urlRouterProvider

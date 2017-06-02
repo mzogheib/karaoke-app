@@ -9,7 +9,7 @@
 
         return {
             controller: controller,
-            templateUrl: 'templates/components/songs-list/songs-list.html',
+            templateUrl: 'songs-list.html',
             bindings: {
                 songs: '<',
                 onRowClick: '&'
