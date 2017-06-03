@@ -2,13 +2,13 @@
     'use strict';
 
     angular
-        .module('component.songView')
-        .component('songView', component());
+        .module('component.song')
+        .component('song', component());
 
     function component () {
         return {
             controller: controller,
-            templateUrl: 'song-view.html',
+            templateUrl: 'song.html',
             bindings: {
             }
         };

@@ -2,16 +2,16 @@
     'use strict';
 
     angular
-        .module('component.songView', [
+        .module('component.song', [
         ])
         .config(config);
 
     function config ($stateProvider) {
         $stateProvider
-            .state('app.songView', {
+            .state('app.song', {
                 url: '/songs/:id',
                 title: 'Song',
-                template: '<song-view></song-view>'
+                template: '<song></song>'
             });
     }
 })();

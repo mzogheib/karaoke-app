@@ -12,7 +12,7 @@
 
             // Routes
             'component.songs',
-            'component.songView',
+            'component.song',
 
             'component.header',
             'component.songsList'
