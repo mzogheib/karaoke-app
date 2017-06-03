@@ -15,7 +15,6 @@ var paths = {
     dest: {
         root: 'build',
         css: 'build/css',
-        fonts: 'build/fonts',
         js: 'build/js',
         templates: 'build/templates'
     },
@@ -23,7 +22,6 @@ var paths = {
     appFiles: {
         root: 'src/*.*',
         css: 'src/**/*.css',
-        fonts: 'src/fonts/**/*',
         js: [
             'src/app/**/*.module.js',
             'src/app/**/*.js'
@@ -34,8 +32,6 @@ var paths = {
     vendorFiles: {
         css: [
             'node_modules/angular-material/angular-material.min.css'
-        ],
-        fonts: [
         ],
         js: [
             'node_modules/angular/angular.min.js',
@@ -60,10 +56,6 @@ gulp.task('default', ['build', 'watch']);
  */
 gulp.task('watch', ['build'], function () {
     watch(paths.appFiles.root, function () {
-        gulp.start('copy');
-    });
-
-    watch(paths.appFiles.fonts, function () {
         gulp.start('copy');
     });
 
@@ -156,10 +148,4 @@ gulp.task('vendorCSS', function () {
 gulp.task('copy', false, function () {
     gulp.src(paths.appFiles.root)
         .pipe(gulp.dest(paths.dest.root));
-
-    gulp.src(paths.appFiles.fonts)
-        .pipe(gulp.dest(paths.dest.fonts));
-
-    gulp.src(paths.vendorFiles.fonts)
-        .pipe(gulp.dest(paths.dest.fonts));
 });
