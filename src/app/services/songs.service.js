@@ -51,15 +51,15 @@
 
         this.getSongs = function () {
             return $q(function (resolve, reject) {
-                // Calculate the average rating for each song
+                // TODO: Calculate the average rating for each song
                 resolve(cache.mySongs);
             });
         };
 
         this.getSongById = function (id) {
             return $q(function (resolve, reject) {
-                // Search for the songs in the cache with lo dash or similar
-                resolve(cache.mySongs[0]);
+                var song = _.find(cache.mySongs, { id: id });
+                resolve(song);
             });
         }
     }
