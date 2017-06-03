@@ -3,6 +3,6 @@ p(ng-if='!$ctrl.songs.length') None
 md-list(ng-if='$ctrl.songs.length')
     md-list-item(ng-repeat="song in $ctrl.songs")
         md-button(layout="row" flex)
-            i(class="material-icons") account_circle
-            span {{ song.artist.name }} - {{ song.title }}
+            i.songs-list__song-icon(class="material-icons") account_circle
+            span.songs-list__song-details {{ song.artist.name }} - {{ song.title }}
             span Average Rating: {{ song.averageRating }}

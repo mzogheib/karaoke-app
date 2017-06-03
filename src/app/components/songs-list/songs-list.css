@@ -1,0 +1,9 @@
+.songs-list__song-icon {
+    font-size: 36px;
+    margin: 0 10px 0 0;
+}
+
+.songs-list__song-details {
+    flex-grow: 1;
+    text-align: left;
+}

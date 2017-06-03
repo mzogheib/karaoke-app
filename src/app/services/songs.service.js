@@ -54,6 +54,13 @@
                 // Calculate the average rating for each song
                 resolve(cache.mySongs);
             });
+        };
+
+        this.getSongById = function (id) {
+            return $q(function (resolve, reject) {
+                // Search for the songs in the cache with lo dash or similar
+                resolve(cache.mySongs[0]);
+            });
         }
     }
 })();

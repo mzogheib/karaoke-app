@@ -11,11 +11,10 @@
             'services.songs',
 
             // Routes
-            'component.addSong',
             'component.songs',
+            'component.songView',
 
             'component.header',
-            'component.songSearch',
             'component.songsList'
         ])
         .config(config)

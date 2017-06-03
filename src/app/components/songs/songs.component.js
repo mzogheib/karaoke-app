@@ -21,7 +21,6 @@
         function onInit () {
             songsService.getSongs()
                 .then(function (data) {
-                    console.log(data);
                     ctrl.songs = data;
                 });
         }

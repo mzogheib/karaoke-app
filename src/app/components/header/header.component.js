@@ -20,7 +20,6 @@
         ctrl.$onInit = onInit;
         ctrl.$onChanges = onChanges;
 
-
         function onInit () {
             setHeaderLabel();
             $transitions.onSuccess({}, setHeaderLabel);
