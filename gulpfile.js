@@ -6,6 +6,7 @@ var flatten = require('gulp-flatten');
 var gulp = require('gulp');
 var gulpif = require('gulp-if');
 var merge = require('merge-stream');
+var pug = require('gulp-pug');
 var runSequence = require('run-sequence');
 var templateCache = require('gulp-angular-templatecache');
 var uglify = require('gulp-uglify');
@@ -20,13 +21,13 @@ var paths = {
     },
 
     appFiles: {
-        root: 'src/*.*',
+        index: 'src/index.pug',
         css: 'src/**/*.css',
         js: [
             'src/app/**/*.module.js',
             'src/app/**/*.js'
         ],
-        templates: 'src/app/**/*.html'
+        templates: 'src/app/**/*.pug'
     },
 
     vendorFiles: {
@@ -55,8 +56,8 @@ gulp.task('default', ['build', 'watch']);
  * Watch task
  */
 gulp.task('watch', ['build'], function () {
-    watch(paths.appFiles.root, function () {
-        gulp.start('copy');
+    watch(paths.appFiles.index, function () {
+        gulp.start('index');
     });
 
     watch(paths.appFiles.js, function () {
@@ -76,7 +77,7 @@ gulp.task('watch', ['build'], function () {
     });
 
     watch(paths.appFiles.templates, function () {
-        gulp.start('copy');
+        gulp.start('appJS');
     });
 });
 
@@ -84,7 +85,7 @@ gulp.task('watch', ['build'], function () {
  * Build task
  */
 gulp.task('build', false, function (cb) {
-    runSequence('clean', ['appJS', 'vendorJS', 'appCSS', 'vendorCSS', 'copy'], cb);
+    runSequence('clean', ['appJS', 'vendorJS', 'appCSS', 'vendorCSS'], 'index', cb);
 });
 
 /**
@@ -101,6 +102,7 @@ gulp.task('clean', false, function () {
 gulp.task('appJS', false, function () {
     var templates = gulp.src(paths.appFiles.templates)
         .pipe(flatten())
+        .pipe(pug())
         .pipe(templateCache({ standalone: true }));
 
     var js = gulp.src(paths.appFiles.js);
@@ -143,9 +145,10 @@ gulp.task('vendorCSS', function () {
 });
 
 /**
- * Copy
+ * Index
  */
-gulp.task('copy', false, function () {
-    gulp.src(paths.appFiles.root)
+gulp.task('index', false, function () {
+    gulp.src(paths.appFiles.index)
+        .pipe(pug())
         .pipe(gulp.dest(paths.dest.root));
 });
