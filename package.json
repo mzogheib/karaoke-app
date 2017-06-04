@@ -4,7 +4,8 @@
   "description": "Rate your favourite karaoke songs",
   "main": "app.js",
   "scripts": {
-    "start": "gulp"
+    "start": "node app.js",
+    "postinstall": "gulp build"
   },
   "keywords": [
     "karaoke",
@@ -13,7 +14,10 @@
   ],
   "author": "Marwan Zogheib <mzogheib@gmail.com>",
   "license": "ISC",
-  "devDependencies": {
+  "engines": {
+    "node": "6.10.2"
+  },
+  "dependencies": {
     "@uirouter/angularjs": "^1.0.3",
     "angular": "^1.6.4",
     "angular-animate": "^1.6.4",
