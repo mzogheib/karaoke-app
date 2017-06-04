@@ -13,8 +13,10 @@
         };
     }
 
-    function controller (songsService) {
+    function controller ($state, songsService) {
         var ctrl = this;
+
+        ctrl.goToSong = goToSong;
 
         ctrl.$onInit = onInit;
 
@@ -23,6 +25,10 @@
                 .then(function (data) {
                     ctrl.songs = data;
                 });
+        }
+
+        function goToSong (id) {
+            $state.go('app.song', { id: id });
         }
 
     }
