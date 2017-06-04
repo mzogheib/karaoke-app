@@ -14,10 +14,9 @@ var watch = require('gulp-watch');
 
 var paths = {
     dest: {
-        root: 'build',
-        css: 'build/css',
-        js: 'build/js',
-        templates: 'build/templates'
+        root: 'public',
+        css: 'public/css',
+        js: 'public/js'
     },
 
     appFiles: {

@@ -20,6 +20,7 @@
     "angular-aria": "^1.6.4",
     "angular-material": "^1.1.4",
     "del": "^2.2.2",
+    "express": "^4.15.3",
     "gulp": "^3.9.1",
     "gulp-angular-templatecache": "^2.0.0",
     "gulp-concat": "^2.6.1",
