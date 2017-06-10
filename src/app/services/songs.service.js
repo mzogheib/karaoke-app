@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('services.songs', [])
+        .module('services')
         .service('songsService', service);
 
     function service ($q) {

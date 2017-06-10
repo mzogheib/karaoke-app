@@ -7,13 +7,8 @@
             'ngMaterial',
 
             'templates',
-
-            'services.songs',
-
-            // Routes
+            'services',
             'routes',
-
-            // Components
             'components'
         ])
         .config(config)
