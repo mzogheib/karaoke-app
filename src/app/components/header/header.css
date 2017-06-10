@@ -1,4 +1,19 @@
-.header__icon {
-    font-size: 36px;
-    vertical-align: middle;
+.header__wrapper {
+    height: 45px;
+    min-height: 45px;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+}
+
+/* Add empty content for the sticky header */
+header::after {
+    content: '';
+    display: block;
+    padding-top: 45px;
+}
+
+.header__title {
+    font-weight: bold;
+    margin: auto 0;
 }
