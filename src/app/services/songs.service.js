@@ -9,49 +9,26 @@
         var cache = {
             mySongs: [
                 {
-                    id: '1',
+                    id: _.uniqueId(),
                     title: 'What\'s New Pussycat',
                     artist: {
                         id: '',
-                        name: 'Tom Jones',
-                        imageUrl: ''
-                    },
-                    averageRating: 4,
-                    performances: [
-                        {
-                            createdAt: '',
-                            timestamp: '',
-                            rating: '4',
-                            location: {},
-                            remarks: ''
-                        }
-                    ]
+                        name: 'Tom Jones'
+                    }
                 },
                 {
-                    id: '2',
+                    id: _.uniqueId(),
                     title: 'For Your Love',
                     artist: {
                         id: '',
-                        name: 'The Yardbirds',
-                        imageUrl: ''
-                    },
-                    averageRating: 3,
-                    performances: [
-                        {
-                            createdAt: '',
-                            timestamp: '',
-                            rating: '3',
-                            location: {},
-                            remarks: ''
-                        }
-                    ]
+                        name: 'The Yardbirds'
+                    }
                 }
             ]
         };
 
         this.getSongs = function () {
             return $q(function (resolve, reject) {
-                // TODO: Calculate the average rating for each song
                 resolve(cache.mySongs);
             });
         };

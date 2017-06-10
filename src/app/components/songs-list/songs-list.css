@@ -7,3 +7,12 @@
     flex-grow: 1;
     text-align: left;
 }
+
+.songs-list__song-artist {
+    line-height: 16px;
+    font-weight: bold;
+}
+
+.songs-list__song-title {
+    line-height: 16px;
+}
