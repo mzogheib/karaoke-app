@@ -9,7 +9,7 @@
 
         return {
             controller: Controller,
-            templateUrl: 'songs-viewer.html',
+            templateUrl: 'song-viewer.html',
             bindings: {
                 song: '<'
             }
