@@ -2,8 +2,18 @@
     'use strict';
 
     angular
-        .module('component.songs')
+        .module('routes')
+        .config(config)
         .component('songs', component());
+
+    function config ($stateProvider) {
+        $stateProvider
+            .state('app.songs', {
+                url: '/songs',
+                title: 'My Songs',
+                template: '<songs></songs>'
+            });
+    }
 
     function component () {
         return {

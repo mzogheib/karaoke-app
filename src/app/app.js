@@ -10,9 +10,8 @@
 
             'services.songs',
 
-            // Page components
-            'component.songs',
-            'component.song',
+            // Routes
+            'routes',
 
             // Shared components
             'component.header',
