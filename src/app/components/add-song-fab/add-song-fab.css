@@ -1,0 +1,8 @@
+.add-song-fab__button {
+    position: fixed !important;
+}
+
+.add-song-fab__icon {
+    font-size: 36px;
+    text-align: center;
+}
