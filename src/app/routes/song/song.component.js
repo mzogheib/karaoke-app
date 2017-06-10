@@ -3,10 +3,10 @@
 
     angular
         .module('routes')
-        .config(config)
-        .component('song', component());
+        .config(Config)
+        .component('song', Component());
 
-    function config ($stateProvider) {
+    function Config ($stateProvider) {
         $stateProvider
             .state('app.song', {
                 url: '/songs/:id',
@@ -15,16 +15,16 @@
             });
     }
 
-    function component () {
+    function Component () {
         return {
-            controller: controller,
+            controller: Controller,
             templateUrl: 'song.html',
             bindings: {
             }
         };
     }
 
-    function controller ($state, songsService) {
+    function Controller ($state, songsService) {
         var ctrl = this;
 
         ctrl.$onInit = onInit;

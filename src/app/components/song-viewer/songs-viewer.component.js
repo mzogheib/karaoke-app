@@ -3,12 +3,12 @@
 
     angular
         .module('components')
-        .component('songViewer', component());
+        .component('songViewer', Component());
 
-    function component () {
+    function Component () {
 
         return {
-            controller: controller,
+            controller: Controller,
             templateUrl: 'songs-viewer.html',
             bindings: {
                 song: '<'
@@ -16,7 +16,7 @@
         };
     }
 
-    function controller () {
+    function Controller () {
         var ctrl = this;
 
         ctrl.$onInit = onInit;

@@ -11,10 +11,10 @@
             'routes',
             'components'
         ])
-        .config(config)
+        .config(Config)
         .config(ngMaterialConfig);
 
-    function config ($stateProvider, $urlRouterProvider) {
+    function Config ($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('app', {
                 abstract: true,

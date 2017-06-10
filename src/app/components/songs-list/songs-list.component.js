@@ -3,12 +3,12 @@
 
     angular
         .module('components')
-        .component('songsList', component());
+        .component('songsList', Component());
 
-    function component () {
+    function Component () {
 
         return {
-            controller: controller,
+            controller: Controller,
             templateUrl: 'songs-list.html',
             bindings: {
                 songs: '<',
@@ -17,7 +17,7 @@
         };
     }
 
-    function controller () {
+    function Controller () {
         var ctrl = this;
 
         ctrl.$onInit = onInit;

@@ -3,18 +3,18 @@
 
     angular
         .module('components')
-        .component('header', component());
+        .component('header', Component());
 
-    function component () {
+    function Component () {
 
         return {
-            controller: controller,
+            controller: Controller,
             templateUrl: 'header.html',
             bindings: {}
         };
     }
 
-    function controller ($state, $transitions) {
+    function Controller ($state, $transitions) {
         var ctrl = this;
 
         ctrl.$onInit = onInit;

@@ -3,9 +3,9 @@
 
     angular
         .module('services')
-        .service('songsService', service);
+        .service('songsService', Service);
 
-    function service ($q) {
+    function Service ($q) {
         var cache = {
             mySongs: [
                 {
