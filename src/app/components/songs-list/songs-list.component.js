@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('component.songsList')
+        .module('components')
         .component('songsList', component());
 
     function component () {

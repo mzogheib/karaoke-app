@@ -2,5 +2,5 @@
     'use strict';
 
     angular
-        .module('component.songViewer', []);
+        .module('components', []);
 })();

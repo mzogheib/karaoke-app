@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('component.header')
+        .module('components')
         .component('header', component());
 
     function component () {

@@ -13,10 +13,8 @@
             // Routes
             'routes',
 
-            // Shared components
-            'component.header',
-            'component.songsList',
-            'component.songViewer'
+            // Components
+            'components'
         ])
         .config(config)
         .config(ngMaterialConfig);

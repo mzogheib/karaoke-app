@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('component.songViewer')
+        .module('components')
         .component('songViewer', component());
 
     function component () {
