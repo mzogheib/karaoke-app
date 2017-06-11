@@ -1,7 +1,7 @@
 md-toolbar.header__wrapper
-    md-button.header__button(ng-click='$ctrl.leftButtonClick()' aria-label='$ctrl.leftText')
+    md-button.header__button(ng-disabled='!$ctrl.showLeftButton' ng-click='$ctrl.leftButtonClick()' aria-label='$ctrl.leftText')
         span {{ $ctrl.leftText }}
     .header__title {{ $ctrl.title }}
-    md-button.header__button(ng-click='$ctrl.rightButtonClick()' aria-label='$ctrl.rightText')
+    md-button.header__button(ng-disabled='!$ctrl.showRightButton' ng-click='$ctrl.rightButtonClick()' aria-label='$ctrl.rightText')
         span(ng-if='!$ctrl.isLoading()') {{ $ctrl.rightText }}
         md-progress-circular.md-accent.header__spinner(ng-if='$ctrl.isLoading()' md-diameter='25px')

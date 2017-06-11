@@ -28,6 +28,13 @@
         ctrl.rightButtonClick = rightButtonClick;
         ctrl.isLoading = isLoading;
 
+        ctrl.$onInit = onInit;
+
+        function onInit () {
+            ctrl.showLeftButton = !!ctrl.onLeftButtonClick && !!ctrl.leftText;
+            ctrl.showRightButton = !!ctrl.onRightButtonClick && !!ctrl.rightText;
+        }
+
         function leftButtonClick () {
             ctrl.onLeftButtonClick();
         }
