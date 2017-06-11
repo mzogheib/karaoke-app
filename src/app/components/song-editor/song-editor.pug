@@ -1,0 +1,8 @@
+.song-editor__wrapper
+    i.song-editor__song-icon(class='material-icons') account_circle
+    md-input-container.song-editor__input-container
+        label Artist
+        input.song-editor__artist(ng-model='$ctrl.song.artist.name')
+    md-input-container.song-editor__input-container
+        label Song
+        input.song-editor__title(ng-model='$ctrl.song.title')

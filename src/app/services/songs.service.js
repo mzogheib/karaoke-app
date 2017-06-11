@@ -18,6 +18,174 @@
                 },
                 {
                     id: _.uniqueId(),
+                    title: 'What\'s New Pussycat',
+                    artist: {
+                        id: '',
+                        name: 'Tom Jones'
+                    }
+                },
+                {
+                    id: _.uniqueId(),
+                    title: 'What\'s New Pussycat',
+                    artist: {
+                        id: '',
+                        name: 'Tom Jones'
+                    }
+                },
+                {
+                    id: _.uniqueId(),
+                    title: 'What\'s New Pussycat',
+                    artist: {
+                        id: '',
+                        name: 'Tom Jones'
+                    }
+                },
+                {
+                    id: _.uniqueId(),
+                    title: 'What\'s New Pussycat',
+                    artist: {
+                        id: '',
+                        name: 'Tom Jones'
+                    }
+                },
+                {
+                    id: _.uniqueId(),
+                    title: 'What\'s New Pussycat',
+                    artist: {
+                        id: '',
+                        name: 'Tom Jones'
+                    }
+                },
+                {
+                    id: _.uniqueId(),
+                    title: 'What\'s New Pussycat',
+                    artist: {
+                        id: '',
+                        name: 'Tom Jones'
+                    }
+                },
+                {
+                    id: _.uniqueId(),
+                    title: 'What\'s New Pussycat',
+                    artist: {
+                        id: '',
+                        name: 'Tom Jones'
+                    }
+                },
+                {
+                    id: _.uniqueId(),
+                    title: 'What\'s New Pussycat',
+                    artist: {
+                        id: '',
+                        name: 'Tom Jones'
+                    }
+                },
+                {
+                    id: _.uniqueId(),
+                    title: 'What\'s New Pussycat',
+                    artist: {
+                        id: '',
+                        name: 'Tom Jones'
+                    }
+                },
+                {
+                    id: _.uniqueId(),
+                    title: 'What\'s New Pussycat',
+                    artist: {
+                        id: '',
+                        name: 'Tom Jones'
+                    }
+                },
+                {
+                    id: _.uniqueId(),
+                    title: 'What\'s New Pussycat',
+                    artist: {
+                        id: '',
+                        name: 'Tom Jones'
+                    }
+                },
+                {
+                    id: _.uniqueId(),
+                    title: 'What\'s New Pussycat',
+                    artist: {
+                        id: '',
+                        name: 'Tom Jones'
+                    }
+                },
+                {
+                    id: _.uniqueId(),
+                    title: 'What\'s New Pussycat',
+                    artist: {
+                        id: '',
+                        name: 'Tom Jones'
+                    }
+                },
+                {
+                    id: _.uniqueId(),
+                    title: 'What\'s New Pussycat',
+                    artist: {
+                        id: '',
+                        name: 'Tom Jones'
+                    }
+                },
+                {
+                    id: _.uniqueId(),
+                    title: 'What\'s New Pussycat',
+                    artist: {
+                        id: '',
+                        name: 'Tom Jones'
+                    }
+                },
+                {
+                    id: _.uniqueId(),
+                    title: 'What\'s New Pussycat',
+                    artist: {
+                        id: '',
+                        name: 'Tom Jones'
+                    }
+                },
+                {
+                    id: _.uniqueId(),
+                    title: 'What\'s New Pussycat',
+                    artist: {
+                        id: '',
+                        name: 'Tom Jones'
+                    }
+                },
+                {
+                    id: _.uniqueId(),
+                    title: 'What\'s New Pussycat',
+                    artist: {
+                        id: '',
+                        name: 'Tom Jones'
+                    }
+                },
+                {
+                    id: _.uniqueId(),
+                    title: 'What\'s New Pussycat',
+                    artist: {
+                        id: '',
+                        name: 'Tom Jones'
+                    }
+                },
+                {
+                    id: _.uniqueId(),
+                    title: 'What\'s New Pussycat',
+                    artist: {
+                        id: '',
+                        name: 'Tom Jones'
+                    }
+                },
+                {
+                    id: _.uniqueId(),
+                    title: 'What\'s New Pussycat',
+                    artist: {
+                        id: '',
+                        name: 'Tom Jones'
+                    }
+                },
+                {
+                    id: _.uniqueId(),
                     title: 'For Your Love',
                     artist: {
                         id: '',
@@ -36,7 +204,11 @@
         this.getSongById = function (id) {
             return $q(function (resolve, reject) {
                 var song = _.find(cache.mySongs, { id: id });
-                resolve(song);
+                if (song) {
+                    resolve(song);
+                } else {
+                    reject();
+                }
             });
         }
     }

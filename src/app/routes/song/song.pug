@@ -1,3 +1,6 @@
-p(ng-if='$ctrl.state === "loading"') Loading...
+header(title='Song' right-text='$ctrl.getHeaderRightText()' on-right-button-click='$ctrl.headerRightButtonClick()' state='$ctrl.headerState')
+p(ng-if='$ctrl.isLoading()') Loading...
+p(ng-if='$ctrl.isError()') Could not load your song!
 
-song-viewer(ng-if='$ctrl.state === "ready"' song='$ctrl.song')
+song-viewer(ng-if='$ctrl.isReady() && !$ctrl.isEditing' song='$ctrl.song')
+song-editor(ng-if='$ctrl.isReady() && $ctrl.isEditing' song='$ctrl.song')

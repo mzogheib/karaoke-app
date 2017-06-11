@@ -10,27 +10,34 @@
         return {
             controller: Controller,
             templateUrl: 'header.html',
-            bindings: {}
+            bindings: {
+                title: '@',
+                leftText: '<',
+                rightText: '<',
+                onLeftButtonClick: '&',
+                onRightButtonClick: '&',
+                state: '<'
+            }
         };
     }
 
     function Controller ($state, $transitions) {
         var ctrl = this;
 
-        ctrl.$onInit = onInit;
-        ctrl.$onChanges = onChanges;
+        ctrl.leftButtonClick = leftButtonClick;
+        ctrl.rightButtonClick = rightButtonClick;
+        ctrl.isLoading = isLoading;
 
-        function onInit () {
-            setHeaderLabel();
-            $transitions.onSuccess({}, setHeaderLabel);
+        function leftButtonClick () {
+            ctrl.onLeftButtonClick();
         }
 
-        function onChanges () {
-            setHeaderLabel();
+        function rightButtonClick () {
+            ctrl.onRightButtonClick();
         }
 
-        function setHeaderLabel () {
-            ctrl.label = $state.current.title;
+        function isLoading () {
+            return ctrl.state === 'loading';
         }
     }
 })();

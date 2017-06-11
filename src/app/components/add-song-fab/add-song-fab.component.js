@@ -9,24 +9,17 @@
 
         return {
             controller: Controller,
-            templateUrl: 'add-song-fab.html',
-            bindings: {
-                songs: '<',
-                onRowClick: '&'
-            }
+            templateUrl: 'add-song-fab.html'
         };
     }
 
-    function Controller () {
+    function Controller ($state) {
         var ctrl = this;
 
-        ctrl.$onInit = onInit;
-        ctrl.$onChanges = onChanges;
+        ctrl.addSong = addSong;
 
-        function onInit () {
-        }
-
-        function onChanges () {
+        function addSong () {
+            $state.go('app.song', { id: 'new' });
         }
     }
 })();

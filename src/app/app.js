@@ -28,7 +28,7 @@
     function ngMaterialConfig ($mdThemingProvider) {
         $mdThemingProvider
             .theme('default')
-            .primaryPalette('brown')
-            .accentPalette('red');
+            .primaryPalette('indigo')
+            .accentPalette('indigo');
     }
 })();

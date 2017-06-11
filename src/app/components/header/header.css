@@ -1,4 +1,6 @@
 .header__wrapper {
+    display: flex;
+    flex-direction: row;
     height: 45px;
     min-height: 45px;
     position: fixed;
@@ -14,6 +16,16 @@ header::after {
 }
 
 .header__title {
+    flex-grow: 1;
     font-weight: bold;
     margin: auto 0;
+}
+
+.header__button {
+    font-size: 14px;
+}
+
+.header__spinner {
+    color: white;
+    margin: 0 auto;
 }
