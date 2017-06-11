@@ -10,6 +10,11 @@
         $stateProvider
             .state('app.song', {
                 url: '/songs/:id',
+                params : {
+                    id: {
+                        dynamic: true
+                    }
+                },
                 title: 'Song',
                 template: '<song></song>'
             });
@@ -40,10 +45,10 @@
             ctrl.state = 'loading';
             ctrl.id = $state.params.id;
 
-            ctrl.isEditing = ctrl.id === 'new';
+            ctrl.isNew = ctrl.isEditing = ctrl.id === 'new';
 
-            if(ctrl.id === 'new') {
-                ctrl.song = {};
+            if(ctrl.isNew) {
+                ctrl.song = songsService.initNewSong();
                 ctrl.state = 'ready';
                 ctrl.headerState = 'ready';
             } else {
@@ -54,17 +59,28 @@
                     })
                     .catch(function () {
                         ctrl.state = 'error';
-                        console.error('Something went wrong!');
+                        console.error('Could not load song');
                     });
             }
         }
 
-        function save (song) {
+        function save () {
             ctrl.headerState = 'loading';
-            $timeout(function () {
-                ctrl.isEditing = false;
-                ctrl.headerState = 'ready';
-            }, 1000);
+            songsService.save(ctrl.song)
+                .then(function (song) {
+                    if (song) {
+                        // Update the url with the new id
+                        ctrl.id = song.id;
+                        ctrl.isNew = false;
+                        $state.go($state.current.name, { id: ctrl.id });
+                    }
+                    ctrl.isEditing = false;
+                    ctrl.headerState = 'ready';
+                })
+                .catch(function () {
+                    ctrl.headerState = 'ready';
+                    console.error('Could not save song');
+                });
         }
 
         function edit () {
