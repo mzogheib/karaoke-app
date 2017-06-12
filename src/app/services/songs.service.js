@@ -5,34 +5,15 @@
         .module('services')
         .service('songsService', Service);
 
-    function Service ($q) {
+    function Service ($q, $http) {
         var cache = {
-            mySongs: [
-                {
-                    id: _.uniqueId(),
-                    title: 'What\'s New Pussycat',
-                    artist: {
-                        id: _.uniqueId(),
-                        name: 'Tom Jones'
-                    }
-                },
-                {
-                    id: _.uniqueId(),
-                    title: 'For Your Love',
-                    artist: {
-                        id: _.uniqueId(),
-                        name: 'The Yardbirds'
-                    }
-                }
-            ]
+            mySongs: []
         };
 
         this.initNewSong = function () {
             return {
-                id: null,
                 title: null,
                 artist: {
-                    id: null,
                     name: null
                 }
             };
@@ -40,32 +21,55 @@
 
         this.getSongs = function () {
             return $q(function (resolve, reject) {
-                resolve(cache.mySongs);
+                $http.get('/api/songs')
+                    .then(onSuccess)
+                    .catch(onError);
+
+                function onSuccess(response) {
+                    resolve(response.data);
+                }
+
+                function onError(err) {
+                    reject(err.statusText);
+                }
             });
         };
 
         this.getSongById = function (id) {
             return $q(function (resolve, reject) {
-                var song = _.find(cache.mySongs, { id: id });
-                if (song) {
-                    resolve(_.cloneDeep(song));
-                } else {
-                    reject();
+                $http.get('/api/songs/' + id)
+                    .then(onSuccess)
+                    .catch(onError);
+
+                function onSuccess(response) {
+                    resolve(response.data);
+                }
+
+                function onError(err) {
+                    reject(err.statusText);
                 }
             });
         };
 
         this.save = function (song) {
             return $q(function (resolve, reject) {
-                if (song.id) {
-                    var cachedSong = _.find(cache.mySongs, { id: song.id });
-                    angular.copy(song, cachedSong);
+                if (song._id) {
+                    $http.put('/api/songs/' + song._id, song)
+                        .then(onSuccess)
+                        .catch(onError);
                 } else {
-                    song.id = _.uniqueId();
-                    song.artist.id = _.uniqueId();
-                    cache.mySongs.push(song);
+                    $http.post('/api/songs', song)
+                        .then(onSuccess)
+                        .catch(onError);
                 }
-                resolve(song);
+
+                function onSuccess (data) {
+                    resolve(data);
+                }
+
+                function onError (err) {
+                    reject(err.statusText);
+                }
             });
         };
     }

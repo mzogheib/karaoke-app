@@ -68,9 +68,9 @@
             ctrl.headerState = 'loading';
             songsService.save(ctrl.song)
                 .then(function (song) {
-                    if (song) {
+                    if (song.data) {
                         // Update the url with the new id
-                        ctrl.id = song.id;
+                        ctrl.id = song.data._id;
                         ctrl.isNew = false;
                         $state.go($state.current.name, { id: ctrl.id });
                     }
