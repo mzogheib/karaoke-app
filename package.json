@@ -39,5 +39,8 @@
     "merge-stream": "^1.0.1",
     "mongoose": "^4.10.5",
     "run-sequence": "^1.2.2"
+  },
+  "devDependencies": {
+    "bcrypt-nodejs": "0.0.3"
   }
 }

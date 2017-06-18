@@ -45,3 +45,4 @@ process.once('SIGUSR2', function () {
 
 // Bring in schemas and models
 require('./songs.model.js');
+require('./user.model.js');
