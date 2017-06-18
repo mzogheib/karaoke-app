@@ -41,6 +41,7 @@
     "run-sequence": "^1.2.2"
   },
   "devDependencies": {
-    "bcrypt-nodejs": "0.0.3"
+    "bcrypt-nodejs": "0.0.3",
+    "jsonwebtoken": "^7.4.1"
   }
 }

@@ -1,10 +1,14 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
+var jwt = require('jsonwebtoken');
+const JWT_SECRET = process.env.JWT_SECRET;
+
 var User = mongoose.model('User');
 
 module.exports = {
     register: register,
-    login: login
+    login: login,
+    authenticate: authenticate
 };
 
 function register (req, res) {
@@ -38,17 +42,39 @@ function login (req, res) {
         .findOne({
             username: username
         })
-        .exec(function ( err, user) {
+        .exec(function (err, user) {
             if (err) {
                 console.log(err);
                 res.status(400).json(err);
             } else {
                 if (bcrypt.compareSync(password, user.password)) {
                     console.log('User found', user);
-                    res.status(200).json(user);
+                    var token = jwt.sign({ username: user.username }, JWT_SECRET, { expiresIn: 3600 });
+                    res.status(200).json({ success: true, token: token });
                 } else {
-                    res.status(400).json('Unauthorized');
+                    res.status(401).json('Unauthorized');
                 }
             }
         });
+}
+
+function authenticate (req, res, next) {
+    var headerExists = !!req.headers.authorization;
+
+    if (headerExists) {
+        // "Authorization: Bearer xxx". The token is the second element in the authorization value
+        var token = req.headers.authorization.split(' ')[1];
+        jwt.verify(token, JWT_SECRET, function (error, decoded) {
+            if (error) {
+                console.log(error);
+                res.status(401).json('Unauthorized');
+            } else {
+                // username was added to the token during login above so can retrieve it again here
+                req.user = decoded.username;
+                next();
+            }
+        })
+    } else {
+        res.status(403).json('No token provided');
+    }
 }

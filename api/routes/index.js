@@ -6,11 +6,13 @@ const ctrlUsers = require('../controllers/users.controller.js');
 
 router
     .route('/songs')
+    .all(ctrlUsers.authenticate)
     .get(ctrlSongs.getAll)
     .post(ctrlSongs.create);
 
 router
     .route('/songs/:id')
+    .all(ctrlUsers.authenticate)
     .get(ctrlSongs.getOne)
     .put(ctrlSongs.update);
     // .delete(ctrlSongs.delete);
