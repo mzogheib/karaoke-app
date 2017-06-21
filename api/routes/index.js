@@ -18,8 +18,8 @@ router
     // .delete(ctrlSongs.delete);
 
 router
-    .route('/register')
-    .post(ctrlUsers.register);
+    .route('/sign-up')
+    .post(ctrlUsers.signUp);
 
 router
     .route('/login')

@@ -6,13 +6,13 @@ const JWT_SECRET = process.env.JWT_SECRET;
 var User = mongoose.model('User');
 
 module.exports = {
-    register: register,
+    signUp: signUp,
     login: login,
     authenticate: authenticate
 };
 
-function register (req, res) {
-    console.log('Registering user');
+function signUp (req, res) {
+    console.log('Signing up user');
 
     var newUser = {
         username: req.body.username,
@@ -27,7 +27,8 @@ function register (req, res) {
                 res.status(400).json(err);
             } else {
                 console.log('New user created', user);
-                res.status(201).json(user);
+                var token = jwt.sign({ username: user.username }, JWT_SECRET, { expiresIn: 3600 });
+                res.status(201).json(token);
             }
         });
 }
