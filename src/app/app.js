@@ -8,6 +8,7 @@
 
             'templates',
             'services',
+            'factories',
             'routes',
             'components'
         ])
