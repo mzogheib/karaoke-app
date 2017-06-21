@@ -10,7 +10,8 @@
             'services',
             'factories',
             'routes',
-            'components'
+            'components',
+            'directives'
         ])
         .config(Config)
         .config(ngMaterialConfig);
