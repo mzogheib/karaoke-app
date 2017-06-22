@@ -33,9 +33,9 @@
             ctrl.state = new stateFactory();
         }
 
-        function signUp (username, name, password) {
+        function signUp (credentials) {
             ctrl.state.setLoading();
-            userService.signUp(username, name, password)
+            userService.signUp(credentials.username, credentials.name, credentials.password)
                 .then(function (data) {
                     $window.sessionStorage.token = data.data;
                     ctrl.state.setReady();
