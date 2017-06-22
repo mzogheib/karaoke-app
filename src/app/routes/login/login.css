@@ -1,0 +1,11 @@
+.login__form-wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    padding: 0 15px;
+}
+
+.login__form {
+    flex-basis: 325px;
+}

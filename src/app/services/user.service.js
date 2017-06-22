@@ -30,6 +30,24 @@
         };
 
         this.login = function (username, password) {
+            return $q(function (resolve, reject) {
+                var user = {
+                    username: username,
+                    password: password
+                };
+
+                $http.post('/api/login', user)
+                    .then(onSuccess)
+                    .catch(onError);
+
+                function onSuccess (data) {
+                    resolve(data);
+                }
+
+                function onError (err) {
+                    reject(err.statusText);
+                }
+            });
         };
 
     }
