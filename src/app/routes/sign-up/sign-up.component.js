@@ -38,6 +38,11 @@
             userService.signUp(credentials.username, credentials.name, credentials.password)
                 .then(function (data) {
                     $window.sessionStorage.token = data.data;
+                })
+                .catch(function (error) {
+                    console.error('Could not sign-up');
+                })
+                .finally(function () {
                     ctrl.state.setReady();
                 });
         }
