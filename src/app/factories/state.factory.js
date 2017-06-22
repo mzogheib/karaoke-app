@@ -15,8 +15,8 @@
 
         var state;
 
-        function State (initialState) {
-            state = initialState || States.READY;
+        function State () {
+            state = States.READY;
         }
 
         State.prototype.setLoading = function () {
