@@ -29,43 +29,40 @@
         };
     }
 
-    function Controller ($timeout, $state, songsService) {
+    function Controller ($state, stateFactory, songsService) {
         var ctrl = this;
 
         ctrl.save = save;
         ctrl.getHeaderRightText = getHeaderRightText;
         ctrl.headerRightButtonClick = headerRightButtonClick;
-        ctrl.isLoading = isLoading;
-        ctrl.isReady = isReady;
-        ctrl.isError = isError;
 
         ctrl.$onInit = onInit;
 
         function onInit () {
-            ctrl.state = 'loading';
+            ctrl.state = new stateFactory('main');
+            ctrl.headerState = new stateFactory('header');
             ctrl.id = $state.params.id;
 
             ctrl.isNew = ctrl.isEditing = ctrl.id === 'new';
 
             if(ctrl.isNew) {
                 ctrl.song = songsService.initNewSong();
-                ctrl.state = 'ready';
-                ctrl.headerState = 'ready';
             } else {
+                ctrl.state.setLoading();
                 songsService.getSongById(ctrl.id)
                     .then(function (data) {
                         ctrl.song = data;
-                        ctrl.state = 'ready';
+                        ctrl.state.setReady();
                     })
                     .catch(function () {
-                        ctrl.state = 'error';
+                        ctrl.state.setError();
                         console.error('Could not load song');
                     });
             }
         }
 
         function save () {
-            ctrl.headerState = 'loading';
+            ctrl.headerState.setLoading();
             songsService.save(ctrl.song)
                 .then(function (song) {
                     if (song.data) {
@@ -75,10 +72,10 @@
                         $state.go($state.current.name, { id: ctrl.id });
                     }
                     ctrl.isEditing = false;
-                    ctrl.headerState = 'ready';
+                    ctrl.headerState.setReady();
                 })
                 .catch(function () {
-                    ctrl.headerState = 'ready';
+                    ctrl.headerState.setReady();
                     console.error('Could not save song');
                 });
         }
@@ -93,18 +90,6 @@
 
         function headerRightButtonClick () {
             ctrl.isEditing ? save() : edit();
-        }
-
-        function isLoading () {
-            return ctrl.state === 'loading';
-        }
-
-        function isReady () {
-            return ctrl.state === 'ready';
-        }
-
-        function isError () {
-            return ctrl.state === 'error';
         }
     }
 })();

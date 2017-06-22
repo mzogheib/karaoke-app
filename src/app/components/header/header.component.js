@@ -26,7 +26,6 @@
 
         ctrl.leftButtonClick = leftButtonClick;
         ctrl.rightButtonClick = rightButtonClick;
-        ctrl.isLoading = isLoading;
 
         ctrl.$onInit = onInit;
 
@@ -41,10 +40,6 @@
 
         function rightButtonClick () {
             ctrl.onRightButtonClick();
-        }
-
-        function isLoading () {
-            return ctrl.state === 'loading';
         }
     }
 })();

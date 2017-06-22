@@ -3,5 +3,5 @@ md-toolbar.header__wrapper
         span {{ $ctrl.leftText }}
     .header__title {{ $ctrl.title }}
     md-button.header__button(ng-disabled='!$ctrl.showRightButton' ng-click='$ctrl.rightButtonClick()' aria-label='$ctrl.rightText')
-        span(ng-if='!$ctrl.isLoading()') {{ $ctrl.rightText }}
-        md-progress-circular.md-accent.header__spinner(ng-if='$ctrl.isLoading()' md-diameter='25px')
+        span(ng-if='$ctrl.state.isReady()') {{ $ctrl.rightText }}
+        md-progress-circular.md-accent.header__spinner(ng-if='$ctrl.state.isLoading()' md-diameter='25px')

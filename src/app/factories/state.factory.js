@@ -13,34 +13,32 @@
             READY: 'ready'
         };
 
-        var state;
-
         function State () {
-            state = States.READY;
+            this.state = States.READY;
         }
 
         State.prototype.setLoading = function () {
-            state = States.LOADING;
+            this.state = States.LOADING;
         }
 
         State.prototype.setReady = function () {
-            state = States.READY;
+            this.state = States.READY;
         }
 
         State.prototype.setError = function () {
-            state = States.ERROR;
+            this.state = States.ERROR;
         }
 
         State.prototype.isLoading = function () {
-            return state === States.LOADING;
+            return this.state === States.LOADING;
         }
 
         State.prototype.isReady = function () {
-            return state === States.READY;
+            return this.state === States.READY;
         }
 
         State.prototype.isError = function () {
-            return state === States.ERROR;
+            return this.state === States.ERROR;
         }
 
         return State;
