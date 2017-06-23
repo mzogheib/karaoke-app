@@ -21,7 +21,7 @@
         };
     }
 
-    function Controller ($state, $transitions) {
+    function Controller () {
         var ctrl = this;
 
         ctrl.leftButtonClick = leftButtonClick;
