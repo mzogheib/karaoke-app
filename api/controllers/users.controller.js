@@ -45,16 +45,20 @@ function login (req, res) {
         })
         .exec(function (err, user) {
             if (err) {
-                console.log(err);
                 res.status(400).json(err);
+                return;
+            } 
+
+            if (!user) {
+                res.status(404).json('Error finding user.');
+                return;
+            }
+
+            if (bcrypt.compareSync(password, user.password)) {
+                var token = jwt.sign({ username: user.username }, JWT_SECRET, { expiresIn: 3600 });
+                res.status(200).json({ success: true, token: token });
             } else {
-                if (bcrypt.compareSync(password, user.password)) {
-                    console.log('User found', user);
-                    var token = jwt.sign({ username: user.username }, JWT_SECRET, { expiresIn: 3600 });
-                    res.status(200).json({ success: true, token: token });
-                } else {
-                    res.status(401).json('Unauthorized');
-                }
+                res.status(401).json('Unauthorized');
             }
         });
 }

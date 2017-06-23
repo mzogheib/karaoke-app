@@ -14,9 +14,12 @@
             'directives'
         ])
         .config(Config)
-        .config(ngMaterialConfig);
+        .config(ngMaterialConfig)
+        .run(Run);
 
-    function Config ($stateProvider, $urlRouterProvider) {
+    function Config ($stateProvider, $urlRouterProvider, $httpProvider) {
+        $httpProvider.interceptors.push('authInterceptorService');
+
         $stateProvider
             .state('app', {
                 abstract: true,
@@ -42,5 +45,16 @@
             .theme('default')
             .primaryPalette('indigo')
             .accentPalette('indigo');
+    }
+
+    function Run ($transitions, $window, authService) {
+        // If going to any of the app.** states and unauthenticated then redirect to login
+        $transitions.onStart({ to: 'app.**' }, function (trans) {
+            var $state = trans.router.stateService;
+            var token = $window.sessionStorage.token;
+            if (!token && !authService.isLoggedIn) {
+                $state.go('login');
+            }
+        });
     }
 })();

@@ -24,7 +24,7 @@
         ctrl.$onInit = onInit;
 
         function onInit () {
-            ctrl.buttonText = ctrl.onSubmit ? 'Sign Up' : 'Login';
+            ctrl.buttonText = ctrl.isSignUp ? 'Sign Up' : 'Login';
         }
     }
 })();

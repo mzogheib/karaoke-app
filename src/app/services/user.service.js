@@ -5,7 +5,7 @@
         .module('services')
         .service('userService', Service);
 
-    function Service ($q, $http) {
+    function Service ($q, $http, authService) {
 
         this.signUp = function (username, name, password) {
             return $q(function (resolve, reject) {
@@ -20,11 +20,12 @@
                     .catch(onError);
 
                 function onSuccess (data) {
-                    resolve(data);
+                    authService.setAuth(data.data);
+                    resolve();
                 }
 
                 function onError (err) {
-                    reject(err.statusText);
+                    reject(err);
                 }
             });
         };
@@ -41,7 +42,8 @@
                     .catch(onError);
 
                 function onSuccess (data) {
-                    resolve(data);
+                    authService.setAuth(data.data.token);
+                    resolve();
                 }
 
                 function onError (err) {

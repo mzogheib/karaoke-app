@@ -8,7 +8,7 @@
 
     function Config ($stateProvider) {
         $stateProvider
-            .state('app.login', {
+            .state('login', {
                 url: '/login',
                 title: 'Login',
                 template: '<login></login>'
@@ -22,7 +22,7 @@
         };
     }
 
-    function Controller ($window, stateFactory, userService) {
+    function Controller ($state, stateFactory, userService) {
         var ctrl = this;
 
         ctrl.login = login;
@@ -36,11 +36,11 @@
         function login (credentials) {
             ctrl.state.setLoading();
             userService.login(credentials.username, credentials.password)
-                .then(function (data) {
-                    $window.sessionStorage.token = data.data;
+                .then(function () {
+                    $state.go('app.songs');
                 })
                 .catch(function (error) {
-                    console.error('Could not login');
+                    console.error('Could not login', error);
                 })
                 .finally(function () {
                     ctrl.state.setReady();
