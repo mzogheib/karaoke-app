@@ -1,6 +1,8 @@
 .add-song-fab__button {
     position: fixed !important;
     bottom: 50px !important;
+    display: flex;
+    justify-content: center;
 }
 
 .add-song-fab__icon {
