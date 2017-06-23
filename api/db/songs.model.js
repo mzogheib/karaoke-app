@@ -13,7 +13,10 @@ var songScheme = new mongoose.Schema({
         type: String,
         required: true
     },
-    artist: artistSchema
+    artist: artistSchema,
+    notes: {
+        type: String
+    }
 });
 
 // Compile the model from the schema

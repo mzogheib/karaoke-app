@@ -14,7 +14,8 @@ function create (req, res) {
             title: req.body.title,
             artist: {
                 name: req.body.artist.name
-            }
+            },
+            notes: req.body.notes
         }, function (err, song) {
             if (err) {
                 console.log('Error creating song');
@@ -58,6 +59,7 @@ function update (req, res) {
             if (response.status === 200) {
                 doc.title = req.body.title;
                 doc.artist.name = req.body.artist.name;
+                doc.notes = req.body.notes;
 
                 doc.save(function (err, songUpdated) {
                     if (err) {
