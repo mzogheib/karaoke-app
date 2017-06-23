@@ -42,7 +42,7 @@
                     .catch(onError);
 
                 function onSuccess (data) {
-                    authService.setAuth(data.data.token);
+                    authService.setAuth(data.data);
                     resolve();
                 }
 
@@ -51,6 +51,12 @@
                 }
             });
         };
+
+        this.logout = function () {
+            authService.clearAuth();
+
+            return $q.resolve();
+        }
 
     }
 })();

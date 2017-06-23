@@ -56,7 +56,7 @@ function login (req, res) {
 
             if (bcrypt.compareSync(password, user.password)) {
                 var token = jwt.sign({ username: user.username }, JWT_SECRET, { expiresIn: 3600 });
-                res.status(200).json({ success: true, token: token });
+                res.status(200).json(token);
             } else {
                 res.status(401).json('Unauthorized');
             }

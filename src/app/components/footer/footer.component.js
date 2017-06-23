@@ -13,7 +13,7 @@
         };
     }
 
-    function Controller ($state, authService) {
+    function Controller ($state, userService) {
         var ctrl = this;
 
         ctrl.logout = logout;
@@ -24,8 +24,10 @@
         }
 
         function logout () {
-            authService.clearAuth();
-            $state.go('app.login');
+            userService.logout()
+            .then(function () {
+                $state.go('app.login');
+            });;
         }
     }
 })();
