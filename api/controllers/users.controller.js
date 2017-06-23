@@ -27,7 +27,7 @@ function signUp (req, res) {
                 res.status(400).json(err);
             } else {
                 console.log('New user created', user);
-                var token = jwt.sign({ username: user.username }, JWT_SECRET, { expiresIn: 3600 });
+                var token = jwt.sign({}, JWT_SECRET, { expiresIn: 3600 });
                 res.status(201).json(token);
             }
         });
@@ -55,7 +55,7 @@ function login (req, res) {
             }
 
             if (bcrypt.compareSync(password, user.password)) {
-                var token = jwt.sign({ username: user.username }, JWT_SECRET, { expiresIn: 3600 });
+                var token = jwt.sign({}, JWT_SECRET, { expiresIn: 3600 });
                 res.status(200).json(token);
             } else {
                 res.status(401).json('Unauthorized');

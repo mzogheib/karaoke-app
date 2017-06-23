@@ -48,14 +48,19 @@
     }
 
     function Run ($transitions, authService) {
-        // If not logged in, redirect to login. If logged in, skip login or sign-up
-        $transitions.onStart({ to: 'app.**' }, function (trans) {
+        $transitions.onStart({}, function (trans) {
             var $state = trans.router.stateService;
-            var isLoggedIn = !!authService.getAuth();
-            if (!isLoggedIn) {
+            var toState = trans.$to();
+            var loggedIn = !!authService.getAuth();
+
+            if (!loggedIn && toState.data && toState.data.authRequired) {
                 $state.go('app.login');
-            } else if (_.includes(['app.login', 'app.signUp'], trans.$to().name)) {
-                $state.go('app.songs')
+                return;
+            }
+
+            if (loggedIn && _.includes(['app.login', 'app.signUp'], toState.name)) {
+                $state.go('app.songs');
+                return;
             }
         });
     }

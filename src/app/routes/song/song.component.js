@@ -16,16 +16,17 @@
                     }
                 },
                 title: 'Song',
-                template: '<song></song>'
+                template: '<song></song>',
+                data: {
+                    authRequired: true
+                }
             });
     }
 
     function Component () {
         return {
             controller: Controller,
-            templateUrl: 'song.html',
-            bindings: {
-            }
+            templateUrl: 'song.html'
         };
     }
 

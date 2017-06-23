@@ -11,15 +11,17 @@
             .state('app.songs', {
                 url: '/songs',
                 title: 'My Songs',
-                template: '<songs></songs>'
+                template: '<songs></songs>',
+                data: {
+                    authRequired: true
+                }
             });
     }
 
     function Component () {
         return {
             controller: Controller,
-            templateUrl: 'songs.html',
-            bindings: {}
+            templateUrl: 'songs.html'
         };
     }
 
