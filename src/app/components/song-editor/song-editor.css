@@ -1,4 +1,5 @@
 .song-editor__wrapper {
+    align-items: center;
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -6,7 +7,6 @@
 
 .song-editor__song-icon {
     font-size: 96px;
-    margin: 0 auto;
 }
 
 .song-editor__input-container {
