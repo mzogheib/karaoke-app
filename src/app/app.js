@@ -48,12 +48,14 @@
     }
 
     function Run ($transitions, authService) {
-        // If going to any of the app.** states and unauthenticated then redirect to login
+        // If not logged in, redirect to login. If logged in, skip login or sign-up
         $transitions.onStart({ to: 'app.**' }, function (trans) {
             var $state = trans.router.stateService;
             var isLoggedIn = !!authService.getAuth();
             if (!isLoggedIn) {
-                $state.go('login');
+                $state.go('app.login');
+            } else if (_.includes(['app.login', 'app.signUp'], trans.$to().name)) {
+                $state.go('app.songs')
             }
         });
     }

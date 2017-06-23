@@ -8,7 +8,7 @@
 
     function Config ($stateProvider) {
         $stateProvider
-            .state('signUp', {
+            .state('app.signUp', {
                 url: '/sign-up',
                 title: 'Sign Up',
                 template: '<sign-up></sign-up>'
