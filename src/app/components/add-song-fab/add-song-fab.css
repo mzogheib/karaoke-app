@@ -1,4 +1,5 @@
 .add-song-fab__button {
+    align-items: center;
     position: fixed !important;
     bottom: 50px !important;
     display: flex;
