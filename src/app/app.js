@@ -47,12 +47,12 @@
             .accentPalette('indigo');
     }
 
-    function Run ($transitions, $window, authService) {
+    function Run ($transitions, authService) {
         // If going to any of the app.** states and unauthenticated then redirect to login
         $transitions.onStart({ to: 'app.**' }, function (trans) {
             var $state = trans.router.stateService;
-            var token = $window.sessionStorage.token;
-            if (!token && !authService.isLoggedIn) {
+            var isLoggedIn = !!authService.getAuth();
+            if (!isLoggedIn) {
                 $state.go('login');
             }
         });

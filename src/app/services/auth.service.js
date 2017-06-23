@@ -7,8 +7,6 @@
 
     function Service ($window) {
 
-        this.isLoggedIn = false;
-
         this.setAuth = function (token) {
             $window.sessionStorage.token = token;
         };
