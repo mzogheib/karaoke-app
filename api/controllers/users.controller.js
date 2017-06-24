@@ -74,8 +74,6 @@ function authenticate (req, res, next) {
                 console.log(error);
                 res.status(401).json('Unauthorized');
             } else {
-                // username was added to the token during login above so can retrieve it again here
-                req.user = decoded.username;
                 next();
             }
         })
