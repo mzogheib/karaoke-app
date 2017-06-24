@@ -4,6 +4,7 @@ var Song = mongoose.model('Song');
 module.exports = {
     create: create,
     update: update,
+    delete: deleteOne,
     getOne: getOne,
     getAll: getAll
 };
@@ -77,6 +78,28 @@ function update (req, res) {
                     .status(response.status)
                     .json(response.message);
             }
+        });
+}
+
+function deleteOne (req, res) {
+    var songId = req.params.id;
+
+    Song
+        .findByIdAndRemove(songId)
+        .exec(function (err, doc) {
+            var response = {
+                status: 200,
+                message: {}
+            };
+
+            if (err) {
+                response.status = 404;
+                response.message = err;
+            }
+
+            res
+                .status(response.status)
+                .json(response.message);
         });
 }
 

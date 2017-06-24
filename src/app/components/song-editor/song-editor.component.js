@@ -8,16 +8,12 @@
     function Component () {
 
         return {
-            controller: Controller,
             templateUrl: 'song-editor.html',
             bindings: {
                 song: '<',
-                onSave: '&'
+                onDelete: '&'
             }
         };
-    }
 
-    function Controller () {
-        var ctrl = this;
     }
 })();

@@ -9,3 +9,8 @@
     md-input-container.song-editor__input-container
         label Notes
         input.song-editor__notes(ng-model='$ctrl.song.notes')
+    md-button.md-warn.md-raised(
+        ng-if='$ctrl.song._id'
+        ng-click='$ctrl.onDelete({ id: $ctrl.song._id })'
+        aria-label='Delete Song'
+    ) Delete
