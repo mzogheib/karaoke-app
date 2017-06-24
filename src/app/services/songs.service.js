@@ -72,5 +72,21 @@
                 }
             });
         };
+
+        this.delete = function (songId) {
+            return $q(function (resolve, reject) {
+                $http.delete('/api/songs/' + songId)
+                    .then(onSuccess)
+                    .catch(onError);
+
+                function onSuccess () {
+                    resolve();
+                }
+
+                function onError (err) {
+                    reject(err.statusText);
+                }
+            });
+        };
     }
 })();

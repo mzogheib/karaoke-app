@@ -14,8 +14,8 @@ router
     .route('/songs/:id')
     .all(ctrlUsers.authenticate)
     .get(ctrlSongs.getOne)
-    .put(ctrlSongs.update);
-    // .delete(ctrlSongs.delete);
+    .put(ctrlSongs.update)
+    .delete(ctrlSongs.delete);
 
 router
     .route('/sign-up')

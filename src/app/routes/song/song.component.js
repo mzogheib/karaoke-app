@@ -34,6 +34,7 @@
         var ctrl = this;
 
         ctrl.save = save;
+        ctrl.delete = deleteSong;
         ctrl.getHeaderRightText = getHeaderRightText;
         ctrl.headerRightButtonClick = headerRightButtonClick;
 
@@ -56,8 +57,8 @@
                         ctrl.state.setReady();
                     })
                     .catch(function () {
-                        ctrl.state.setError();
                         console.error('Could not load song');
+                        ctrl.state.setError();
                     });
             }
         }
@@ -68,16 +69,31 @@
                 .then(function (song) {
                     if (song.data) {
                         // Update the url with the new id
-                        ctrl.id = song.data._id;
+                        ctrl.id = ctrl.song._id = song.data._id;
                         ctrl.isNew = false;
                         $state.go($state.current.name, { id: ctrl.id });
                     }
                     ctrl.isEditing = false;
-                    ctrl.headerState.setReady();
                 })
                 .catch(function () {
-                    ctrl.headerState.setReady();
                     console.error('Could not save song');
+                })
+                .finally(function () {
+                    ctrl.headerState.setReady();
+                });
+        }
+
+        function deleteSong (id) {
+            ctrl.headerState.setLoading();
+            songsService.delete(id)
+                .then(function () {
+                    $state.go('app.songs');
+                })
+                .catch(function () {
+                    console.error('Could not delete song');
+                })
+                .finally(function () {
+                    ctrl.headerState.setReady();
                 });
         }
 
