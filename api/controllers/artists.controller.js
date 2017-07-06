@@ -1,136 +1,95 @@
 var mongoose = require('mongoose');
+var _ = require('lodash');
+
 var Artist = mongoose.model('Artist');
 
 module.exports = {
     create: create,
     update: update,
     delete: deleteOne,
-    getOne: getOne,
+    get: get,
     getAll: getAll
 };
 
-function create (req, res) {
-    Artist
-        .create({
-            name: req.body.name
-        }, function (err, artist) {
-            if (err) {
-                res
-                    .status(400)
-                    .json(err);
+function create (options, callback) {
+    Artist.create(options, callback);
+}
+
+function update (options) {
+    var artist = options.artist;
+    artist.name = options.name;
+    artist.songs = options.songs;
+
+    return new Promise(function (resolve, reject) {
+        artist.save(function (error, artistUpdated) {
+            if (error) {
+                reject(error);
             } else {
-                res
-                    .status(201)
-                    .json(artist);
+                resolve();
             }
         });
+    });
 }
 
-function update (req, res) {
-    var artistId = req.params.id;
+function deleteSongs (songs) {
+    return new Promise(function (resolve, reject) {
+        console.log('deleteSongs');
+        _.forEach(songs, function (song) {
+            console.log(song._id);
+        });
+        resolve();
+    });
+}
 
-    Artist
-        .findById(artistId)
-        .exec(function (err, doc) {
-            var response = {
-                status: 200,
-                message: doc
-            };
+function deleteOne (options) {
+    return new Promise(function (resolve, reject) {
+        get(options)
+            .then(function (artist) {
+                console.log('getArtistSongs');
+                if (artist) {
+                    return deleteSongs(artist.songs)
+                }
+            })
+            .then(function () {
+                console.log('deleteArtist');
+                Artist
+                    .findByIdAndRemove(options.id)
+                    .exec(function (error, doc) {
+                        if (error) {
+                            reject(error);
+                        } else {
+                            resolve();
+                        }
+                    });
+            })
+            .catch(function (error) {
+                reject(error);
+            });
+    });
+}
 
-            if (err) {
-                response.status = 500;
-                response.message = err;
-            } else if (!doc) {
-                response.status = 404;
-                response.message = {
-                    "message": "Artist ID not found"
-                };
-            }
-
-            // If the artist is found then update it
-            if (response.status === 200) {
-                doc.name = req.body.name;
-                doc.songs = req.body.songs;
-
-                doc.save(function (err, artistUpdated) {
-                    if (err) {
-                        res
-                            .status(500)
-                            .json(err);
-                    } else {
-                        res
-                            .status(204)
-                            .json();
-                    }
-                });
+function get (options) {
+    return new Promise(function (resolve, reject) {
+        console.log('get', options)
+        Artist.findById(options.id).exec(function (error, doc) {
+            console.log(error, doc)
+            if (error) {
+                reject(error);
             } else {
-                res
-                    .status(response.status)
-                    .json(response.message);
+                resolve(doc);
             }
         });
+    });
 }
 
-function deleteOne (req, res) {
-    var artistId = req.params.id;
-
-    Artist
-        .findByIdAndRemove(artistId)
-        .exec(function (err, doc) {
-            var response = {
-                status: 200,
-                message: {}
-            };
-
-            if (err) {
-                response.status = 404;
-                response.message = err;
-            }
-
-            res
-                .status(response.status)
-                .json(response.message);
-        });
-}
-
-function getOne (req, res) {
-    var artistId = req.params.id;
-
-    Artist
-        .findById(artistId)
-        .exec(function (err, doc) {
-            var response = {
-                status: 200,
-                message: doc
-            };
-
-            if (err) {
-                response.status = 500;
-                response.message = err;
-            } else if (!doc) {
-                response.status = 404;
-                response.message = {
-                    "message": "Artist ID not found"
-                };
-            }
-
-            res
-                .status(response.status)
-                .json(response.message);
-        });
-}
-
-function getAll (req, res) {
-    Artist
-        .find()
-        .exec(function (err, artists) {
-            if (err) {
-                res
-                    .status(500)
-                    .json(err)
+function getAll () {
+    return new Promise(function (resolve, reject) {
+        Artist.find().exec(function (error, doc) {
+            if (error) {
+                reject(error);
             } else {
-                res
-                    .json(artists);
+                resolve(doc);
             }
-        })
+        });
+    });
 }

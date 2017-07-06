@@ -5,18 +5,20 @@ const ctrlArtists = require('../controllers/artists.controller.js');
 const ctrlSongs = require('../controllers/songs.controller.js');
 const ctrlUsers = require('../controllers/users.controller.js');
 
+const routeArtists = require('./artists.route.js');
+
 router
     .route('/artists')
     .all(ctrlUsers.authenticate)
-    .get(ctrlArtists.getAll)
-    .post(ctrlArtists.create);
+    .get(routeArtists.getAll)
+    .post(routeArtists.create);
 
 router
     .route('/artists/:id')
     .all(ctrlUsers.authenticate)
-    .get(ctrlArtists.getOne)
-    .put(ctrlArtists.update)
-    .delete(ctrlArtists.delete);
+    .get(routeArtists.get)
+    .put(routeArtists.update)
+    .delete(routeArtists.delete);
 
 router
     .route('/songs')
