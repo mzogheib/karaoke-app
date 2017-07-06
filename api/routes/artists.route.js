@@ -10,11 +10,32 @@ module.exports = {
 
 function create (req, res) {
     var options = {
-        name: req.body.name
+        name: req.body.names
+    };
+
+    var response = {
+        status: 201,
+        message: {}
     };
 
     ctrlArtists
-        .create(options);
+        .create(options)
+        .then(onSuccess)
+        .catch(onError)
+        .then(respond);
+
+    function onSuccess (artist) {
+        response.message = artist;
+    }
+
+    function onError (error) {
+        response.status = 500;
+        response.message = error;
+    }
+
+    function respond () {
+        res.status(response.status).json(response.message);
+    }
 }
 
 function update (req, res) {

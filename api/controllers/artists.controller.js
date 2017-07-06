@@ -11,8 +11,16 @@ module.exports = {
     getAll: getAll
 };
 
-function create (options, callback) {
-    Artist.create(options, callback);
+function create (options) {
+    return new Promise(function (resolve, reject) {
+        Artist.create(options, function (error, artist) {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(artist);
+            }
+        });
+    });
 }
 
 function update (options) {
