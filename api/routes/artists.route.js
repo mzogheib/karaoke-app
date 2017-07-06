@@ -40,7 +40,7 @@ function create (req, res) {
 
 function update (req, res) {
     var options = {
-        id: req.params.id,
+        _id: req.params.id,
         name: req.body.name,
         songs: req.body.songs
     };
@@ -51,7 +51,7 @@ function update (req, res) {
     };
 
     ctrlArtists
-        .getOne(options)
+        .get(options)
         .then(function (artist) {
             if (artist) {
                 options.artist = artist;
@@ -76,7 +76,7 @@ function update (req, res) {
 
 function get (req, res) {
     var options = {
-        id: req.params.id
+        _id: req.params.id
     };
 
     var response = {};
@@ -138,7 +138,7 @@ function getAll (req, res) {
 
 function deleteOne (req, res) {
     var options = {
-        id: req.params.id
+        _id: req.params.id
     };
 
     var response = {};

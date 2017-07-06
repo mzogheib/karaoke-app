@@ -79,7 +79,7 @@ function deleteOne (options) {
 function get (options) {
     return new Promise(function (resolve, reject) {
         console.log('get', options)
-        Artist.findById(options.id).exec(function (error, doc) {
+        Artist.findById(options._id).exec(function (error, doc) {
             console.log(error, doc)
             if (error) {
                 reject(error);
