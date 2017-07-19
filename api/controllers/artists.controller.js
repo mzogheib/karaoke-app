@@ -11,31 +11,29 @@ module.exports = {
     getAll: getAll
 };
 
-function create (options) {
+function create (artist) {
     return new Promise(function (resolve, reject) {
-        Artist.create(options, function (error, artist) {
-            if (error) {
-                reject(error);
-            } else {
-                resolve(artist);
-            }
-        });
+        Artist
+            .create(artist, function (error, artist) {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(artist);
+                }
+            });
     });
 }
 
-function update (options) {
-    var artist = options.artist;
-    artist.name = options.name;
-    artist.songs = options.songs;
-
+function update (_id, artist) {
     return new Promise(function (resolve, reject) {
-        artist.save(function (error, artistUpdated) {
-            if (error) {
-                reject(error);
-            } else {
-                resolve();
-            }
-        });
+        Artist
+            .update({ _id: _id }, artist, function (error, artistUpdated) {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve();
+                }
+            });
     });
 }
 
@@ -49,20 +47,23 @@ function deleteSongs (songs) {
     });
 }
 
-function deleteOne (options) {
+function deleteOne (_id) {
     return new Promise(function (resolve, reject) {
-        get(options)
+        get(_id)
             .then(function (artist) {
                 console.log('getArtistSongs');
                 if (artist) {
                     return deleteSongs(artist.songs)
+                } else {
+                    // TODO: reject with something useful
+                    reject();
                 }
             })
             .then(function () {
                 console.log('deleteArtist');
                 Artist
-                    .findByIdAndRemove(options.id)
-                    .exec(function (error, doc) {
+                    .findByIdAndRemove(_id)
+                    .exec(function (error) {
                         if (error) {
                             reject(error);
                         } else {
@@ -76,28 +77,30 @@ function deleteOne (options) {
     });
 }
 
-function get (options) {
+function get (_id) {
     return new Promise(function (resolve, reject) {
-        console.log('get', options)
-        Artist.findById(options._id).exec(function (error, doc) {
-            console.log(error, doc)
-            if (error) {
-                reject(error);
-            } else {
-                resolve(doc);
-            }
-        });
+        Artist
+            .findById(_id)
+            .exec(function (error, artist) {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(artist);
+                }
+            });
     });
 }
 
 function getAll () {
     return new Promise(function (resolve, reject) {
-        Artist.find().exec(function (error, doc) {
-            if (error) {
-                reject(error);
-            } else {
-                resolve(doc);
-            }
-        });
+        Artist
+            .find()
+            .exec(function (error, artists) {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(artists);
+                }
+            });
     });
 }

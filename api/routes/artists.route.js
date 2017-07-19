@@ -39,8 +39,8 @@ function create (req, res) {
 }
 
 function update (req, res) {
-    var options = {
-        _id: req.params.id,
+    var _id = req.params.id;
+    var artist = {
         name: req.body.name,
         songs: req.body.songs
     };
@@ -51,18 +51,14 @@ function update (req, res) {
     };
 
     ctrlArtists
-        .get(options)
-        .then(function (artist) {
-            if (artist) {
-                options.artist = artist;
-                return ctrlArtists.update(options);
-            } else {
-                response.status = 404;
-                response.message = "Artist ID not found";
-            }
-        })
+        .update(_id, artist)
+        .then(onSuccess)
         .catch(onError)
         .then(respond);
+
+    function onSuccess () {
+        // ...
+    }
 
     function onError (error) {
         response.status = 500;
@@ -75,14 +71,12 @@ function update (req, res) {
 }
 
 function get (req, res) {
-    var options = {
-        _id: req.params.id
-    };
+    var _id = req.params.id;
 
     var response = {};
 
     ctrlArtists
-        .get(options)
+        .get(_id)
         .then(onSuccess)
         .catch(onError)
         .then(respond);
@@ -137,14 +131,12 @@ function getAll (req, res) {
 }
 
 function deleteOne (req, res) {
-    var options = {
-        _id: req.params.id
-    };
+    var _id = req.params.id;
 
     var response = {};
 
     ctrlArtists
-        .delete(options)
+        .delete(_id)
         .then(onSuccess)
         .catch(onError)
         .then(respond);
