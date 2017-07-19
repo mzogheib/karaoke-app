@@ -6,6 +6,7 @@ const ctrlSongs = require('../controllers/songs.controller.js');
 const ctrlUsers = require('../controllers/users.controller.js');
 
 const routeArtists = require('./artists.route.js');
+const routeSongs = require('./songs.route.js');
 
 router
     .route('/artists')
@@ -23,15 +24,15 @@ router
 router
     .route('/songs')
     .all(ctrlUsers.authenticate)
-    .get(ctrlSongs.getAll)
-    .post(ctrlSongs.create);
+    .get(routeSongs.getAll)
+    .post(routeSongs.create);
 
 router
     .route('/songs/:id')
     .all(ctrlUsers.authenticate)
-    .get(ctrlSongs.getOne)
-    .put(ctrlSongs.update)
-    .delete(ctrlSongs.delete);
+    .get(routeSongs.get)
+    .put(routeSongs.update)
+    .delete(routeSongs.delete);
 
 router
     .route('/sign-up')

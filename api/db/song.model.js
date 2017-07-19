@@ -1,20 +1,13 @@
 var mongoose = require('mongoose');
 
 var songScheme = new mongoose.Schema({
-    // path: schemaType
     title: {
         type: String,
         required: true
     },
-    artist: {
-        _id: {
-            type: String,
-            required: true
-        },
-        name: {
-            type: String,
-            required: true
-        }
+    artistId: {
+        type: String,
+        required: true
     },
     notes: {
         type: String
