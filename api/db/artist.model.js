@@ -6,16 +6,7 @@ var artistSchema = new mongoose.Schema({
         unique: true,
         required: true
     },
-    songs: [{
-        _id: {
-            type: String,
-            required: true
-        },
-        title: {
-            type: String,
-            required: true
-        }
-    }]
+    songIds: [String]
 });
 
 // Compile the model from the schema

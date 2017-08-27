@@ -10,7 +10,7 @@ module.exports = {
 
 function create (req, res) {
     var options = {
-        name: req.body.names
+        name: req.body.name
     };
 
     var response = {

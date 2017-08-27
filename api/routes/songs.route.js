@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 var ctrlSongs = require('../controllers/songs.controller.js');
 var ctrlArtists = require('../controllers/artists.controller.js');
 
@@ -27,8 +29,8 @@ function create (req, res) {
     if (!song.artistId) {
         ctrlArtists
             .create({ name: song.artistName })
-            .then(function (artist) {
-                song.artistId = artist._id;
+            .then(function (newArtist) {
+                song.artistId = newArtist._id;
                 doCreate();
             })
             .catch(function (error) {
@@ -42,12 +44,16 @@ function create (req, res) {
     function doCreate () {
         ctrlSongs
             .create(song)
+            .then(function (newSong) {
+                return ctrlArtists
+                    .addSong(newSong._id, newSong.artistId);
+            })
             .then(onSuccess)
             .catch(onError)
             .then(respond);
     }
 
-    function onSuccess (song) {
+    function onSuccess () {
         response.message = song;
     }
 
@@ -66,6 +72,7 @@ function update (req, res) {
     var song = {
         title: req.body.title,
         artistId: req.body.artistId,
+        oldArtistId: req.body.oldArtistId,
         artistName: req.body.artistName,
         notes: req.body.notes
     };
@@ -78,8 +85,8 @@ function update (req, res) {
     if (!song.artistId) {
         ctrlArtists
             .create({ name: song.artistName })
-            .then(function (artist) {
-                song.artistId = artist._id;
+            .then(function (newArtist) {
+                song.artistId = newArtist._id;
                 doUpdate();
             })
             .catch(function (error) {
@@ -91,11 +98,27 @@ function update (req, res) {
     }
     
     function doUpdate () {
-        ctrlSongs
-            .update(_id, song)
-            .then(onSuccess)
-            .catch(onError)
-            .then(respond);
+        if (song.oldArtistId) {
+            ctrlArtists
+                .removeSong(_id, song.oldArtistId)
+                .then(function () {
+                    return ctrlSongs
+                        .update(_id, song)
+                })
+                .then(function (updatedSong) {
+                    return ctrlArtists
+                        .addSong(_id, song.artistId);
+                })
+                .then(onSuccess)
+                .catch(onError)
+                .then(respond);
+        } else {
+            ctrlSongs
+                .update(_id, song)
+                .then(onSuccess)
+                .catch(onError)
+                .then(respond);
+        }
     }
 
     function onSuccess () {
@@ -174,11 +197,16 @@ function getAll (req, res) {
 
 function deleteOne (req, res) {
     var _id = req.params.id;
-
+    var artistId = req.body.artistId;
+    
     var response = {};
 
     ctrlSongs
         .delete(_id)
+        .then(function () {
+            return ctrlArtists
+                .removeSong(_id, artistId)
+        })
         .then(onSuccess)
         .catch(onError)
         .then(respond);

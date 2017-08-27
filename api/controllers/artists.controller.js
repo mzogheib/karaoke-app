@@ -6,8 +6,11 @@ var Artist = mongoose.model('Artist');
 module.exports = {
     create: create,
     update: update,
+    addSong: addSong,
+    removeSong: removeSong,
     delete: deleteOne,
     get: get,
+    getBySong: getBySong,
     getAll: getAll
 };
 
@@ -35,6 +38,32 @@ function update (_id, artist) {
                 }
             });
     });
+}
+
+function addSong (songId, artistId) {
+    return get(artistId)
+        .then(function (artist) {
+            if (_.indexOf(artist.songIds, songId) === -1) {
+                artist.songIds.push(songId);
+                return update(artist._id, artist);
+            }
+
+            return;
+        });
+}
+
+function removeSong (songId, artistId) {
+    return getBySong(songId)
+        .then(function (artists) {
+            var promises = [];
+
+            _.each(artists, function (artist) {
+                _.pull(artist.songIds, songId);
+                promises.push(update(artist._id, artist));
+            });
+
+            return Promise.all(promises);
+        });
 }
 
 function deleteSongs (songs) {
@@ -86,6 +115,20 @@ function get (_id) {
                     reject(error);
                 } else {
                     resolve(artist);
+                }
+            });
+    });
+}
+
+function getBySong (songId) {
+    return new Promise(function (resolve, reject) {
+        Artist
+            .find({ songIds: songId })
+            .exec(function (error, artists) {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(artists);
                 }
             });
     });
