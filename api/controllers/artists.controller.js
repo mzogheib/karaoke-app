@@ -66,42 +66,16 @@ function removeSong (songId, artistId) {
         });
 }
 
-function deleteSongs (songs) {
-    return new Promise(function (resolve, reject) {
-        console.log('deleteSongs');
-        _.forEach(songs, function (song) {
-            console.log(song._id);
-        });
-        resolve();
-    });
-}
-
 function deleteOne (_id) {
     return new Promise(function (resolve, reject) {
-        get(_id)
-            .then(function (artist) {
-                console.log('getArtistSongs');
-                if (artist) {
-                    return deleteSongs(artist.songs)
+        Artist
+            .findByIdAndRemove(_id)
+            .exec(function (error) {
+                if (error) {
+                    reject(error);
                 } else {
-                    // TODO: reject with something useful
-                    reject();
+                    resolve();
                 }
-            })
-            .then(function () {
-                console.log('deleteArtist');
-                Artist
-                    .findByIdAndRemove(_id)
-                    .exec(function (error) {
-                        if (error) {
-                            reject(error);
-                        } else {
-                            resolve();
-                        }
-                    });
-            })
-            .catch(function (error) {
-                reject(error);
             });
     });
 }

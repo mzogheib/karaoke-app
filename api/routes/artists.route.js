@@ -1,4 +1,7 @@
+var _ = require('lodash');
+
 var ctrlArtists = require('../controllers/artists.controller.js');
+var ctrlSongs = require('../controllers/songs.controller.js');
 
 module.exports = {
     create: create,
@@ -136,7 +139,18 @@ function deleteOne (req, res) {
     var response = {};
 
     ctrlArtists
-        .delete(_id)
+        .get(_id)
+        .then(function (artist) {
+            var promises = _.map(artist.songIds, function (songId) {
+                ctrlSongs.delete(songId);
+            });
+
+            return Promise.all(promises);
+        })
+        .then(function () {
+            return ctrlArtists
+                .delete(_id)
+        })
         .then(onSuccess)
         .catch(onError)
         .then(respond);
