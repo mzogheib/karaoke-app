@@ -45,6 +45,7 @@ function create (req, res) {
         ctrlSongs
             .create(song)
             .then(function (newSong) {
+                song._id = newSong._id;
                 return ctrlArtists
                     .addSong(newSong._id, newSong.artistId);
             })
