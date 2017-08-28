@@ -13,9 +13,7 @@
         this.initNewSong = function () {
             return {
                 title: null,
-                artist: {
-                    name: null
-                }
+                artistName: null
             };
         };
 
