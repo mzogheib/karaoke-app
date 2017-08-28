@@ -48,12 +48,15 @@ function create (req, res) {
                 return ctrlArtists
                     .addSong(newSong._id, newSong.artistId);
             })
+            .then(function () {
+                return decorate(song);
+            })
             .then(onSuccess)
             .catch(onError)
             .then(respond);
     }
 
-    function onSuccess () {
+    function onSuccess (song) {
         response.message = song;
     }
 
@@ -142,6 +145,7 @@ function get (req, res) {
 
     ctrlSongs
         .get(_id)
+        .then(decorate)
         .then(onSuccess)
         .catch(onError)
         .then(respond);
@@ -169,6 +173,7 @@ function get (req, res) {
 function getAll (req, res) {
     ctrlSongs
         .getAll()
+        .then(decorate)
         .then(onSuccess)
         .catch(onError)
         .then(respond);
@@ -224,4 +229,34 @@ function deleteOne (req, res) {
     function respond () {
         res.status(response.status).json(response.message);
     }
+}
+
+function decorate (songs) {
+    if (songs.length) {
+        var promises = _.map(songs, function (song) {
+            return decorateOne(song);
+        });
+        return Promise.all(promises);
+    } else {
+        return decorateOne(songs);
+    }
+}
+
+function decorateOne (song) {
+    return new Promise (function (resolve, reject) {
+        ctrlArtists
+            .get(song.artistId)
+            .then(function (artist) {
+                resolve({
+                    _id: song._id,
+                    title: song.title,
+                    artistId: song.artistId,
+                    artistName: artist.name,
+                    notes: song.notes
+                });
+            })
+            .catch(function (error) {
+                reject(error);
+            });
+    });
 }
