@@ -1,0 +1,7 @@
+header(title='Artist' right-text='$ctrl.getHeaderRightText()' on-right-button-click='$ctrl.headerRightButtonClick()' state='$ctrl.headerState')
+p(ng-if='$ctrl.state.isLoading()') Loading...
+p(ng-if='$ctrl.state.isError()') Could not load artist!
+div(ng-if='$ctrl.state.isReady()')
+    artist-viewer(ng-if='!$ctrl.isEditing' artist='$ctrl.artist')
+    artist-editor(ng-if='$ctrl.isEditing' artist='$ctrl.artist' on-delete='$ctrl.delete(id)')
+footer

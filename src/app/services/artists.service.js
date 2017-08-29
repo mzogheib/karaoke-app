@@ -39,5 +39,37 @@
             });
         };
 
+        this.save = function (artist) {
+            return $q(function (resolve, reject) {
+                $http.put('/api/artists/' + artist._id, artist)
+                    .then(onSuccess)
+                    .catch(onError);
+
+                function onSuccess (data) {
+                    resolve(data);
+                }
+
+                function onError (err) {
+                    reject(err.statusText);
+                }
+            });
+        };
+
+        this.delete = function (id) {
+            return $q(function (resolve, reject) {
+                $http.delete('/api/artists/' + id)
+                    .then(onSuccess)
+                    .catch(onError);
+
+                function onSuccess () {
+                    resolve();
+                }
+
+                function onError (err) {
+                    reject(err.statusText);
+                }
+            });
+        };
+
     }
 })();

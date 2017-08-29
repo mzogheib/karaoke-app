@@ -1,0 +1,10 @@
+.artist-editor__wrapper
+    i.artist-editor__artist-icon(class='material-icons') portrait
+    md-input-container.artist-editor__input-container
+        label Artist
+        input.artist-editor__artist(ng-model='$ctrl.artist.name')
+    md-button.md-warn.md-raised(
+        ng-if='$ctrl.artist._id'
+        ng-click='$ctrl.onDelete({ id: $ctrl.artist._id })'
+        aria-label='Delete Artist'
+    ) Delete
