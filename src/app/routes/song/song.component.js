@@ -65,11 +65,14 @@
 
         function save () {
             ctrl.headerState.setLoading();
+            var action = ctrl.song._id ? 'update' : 'create';
+
             songsService.save(ctrl.song)
                 .then(function (song) {
-                    if (song.data) {
+                    ctrl.song = song;
+                    if (action === 'create') {
                         // Update the url with the new id
-                        ctrl.id = ctrl.song._id = song.data._id;
+                        ctrl.id = ctrl.song._id;
                         ctrl.isNew = false;
                         $state.go($state.current.name, { id: ctrl.id });
                     }

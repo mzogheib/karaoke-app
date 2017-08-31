@@ -24,7 +24,10 @@
                     .catch(onError);
 
                 function onSuccess(response) {
-                    resolve(response.data);
+                    var songs = _.map(response.data, function (songData) {
+                        return fromServer(songData);
+                    });
+                    resolve(songs);
                 }
 
                 function onError(err) {
@@ -40,7 +43,7 @@
                     .catch(onError);
 
                 function onSuccess(response) {
-                    resolve(response.data);
+                    resolve(fromServer(response.data));
                 }
 
                 function onError(err) {
@@ -49,20 +52,25 @@
             });
         };
 
-        this.save = function (song) {
+        this.save = function (song) {            
             return $q(function (resolve, reject) {
                 if (song._id) {
-                    $http.put('/api/songs/' + song._id, song)
+                    $http.put('/api/songs/' + song._id, toServer(song))
                         .then(onSuccess)
                         .catch(onError);
                 } else {
-                    $http.post('/api/songs', song)
+                    $http.post('/api/songs', toServer(song))
                         .then(onSuccess)
                         .catch(onError);
                 }
 
                 function onSuccess (data) {
-                    resolve(data);
+                    if (data && data.data) {
+                        resolve(fromServer(data.data));
+                    } else {
+                        // Bit of a hack as not from server but ok for now
+                        resolve(fromServer(song));
+                    }
                 }
 
                 function onError (err) {
@@ -86,5 +94,22 @@
                 }
             });
         };
+
+        function fromServer (data) {
+            var song;
+
+            song = data;
+            song.oldArtistId = angular.copy(data.artistId);
+
+            return song;
+        }
+
+        function toServer (song) {
+            if (song.oldArtistId === song.artistId) {
+                song.oldArtistId = undefined;
+            }
+
+            return angular.copy(song);
+        }
     }
 })();
