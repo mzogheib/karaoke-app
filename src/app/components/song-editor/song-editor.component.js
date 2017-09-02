@@ -33,6 +33,8 @@
                 _.forEach(ctrl.artists, function (artist) {
                     artist.nameLowercase = angular.lowercase(artist.name);
                 });
+
+                ctrl.selectedArtist = _.find(ctrl.artists, { _id: ctrl.song.artistId });
             }
 
             function queryFilter (query) {
