@@ -1,3 +1,6 @@
 header(title='Artists')
-artists-list(ng-if='$ctrl.artists' artists='$ctrl.artists' on-row-click='$ctrl.goToArtist(id)')
+p(ng-if='$ctrl.state.isLoading()') Loading...
+p(ng-if='$ctrl.state.isError()') Could not load your artists!
+div(ng-if='$ctrl.state.isReady()')
+    artists-list(artists='$ctrl.artists' on-row-click='$ctrl.goToArtist(id)')
 footer
