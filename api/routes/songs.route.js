@@ -186,8 +186,8 @@ function getAll (req, res) {
             response.status = 200;
             response.message = songs;
         } else {
-            response.status = 404;
-            response.message = "Songs not found";
+            response.status = 200;
+            response.message = [];
         }
     }
 
@@ -233,6 +233,10 @@ function deleteOne (req, res) {
 }
 
 function decorate (songs) {
+    if (!songs || songs.length === 0) {
+        return;
+    }
+
     if (songs.length) {
         var promises = _.map(songs, function (song) {
             return decorateOne(song);
