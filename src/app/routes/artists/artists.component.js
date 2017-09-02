@@ -4,14 +4,14 @@
     angular
         .module('routes')
         .config(Config)
-        .component('songs', Component());
+        .component('artists', Component());
 
     function Config ($stateProvider) {
         $stateProvider
-            .state('app.songs', {
-                url: '/songs',
-                title: 'My Songs',
-                template: '<songs></songs>',
+            .state('app.artists', {
+                url: '/artists',
+                title: 'Artists',
+                template: '<artists></artists>',
                 data: {
                     authRequired: true
                 }
@@ -21,33 +21,33 @@
     function Component () {
         return {
             controller: Controller,
-            templateUrl: 'songs.html'
+            templateUrl: 'artists.html'
         };
     }
 
-    function Controller ($state, stateFactory, songsService) {
+    function Controller ($state, stateFactory, artistsService) {
         var ctrl = this;
 
-        ctrl.goToSong = goToSong;
+        ctrl.goToArtist = goToArtist;
 
         ctrl.$onInit = onInit;
 
         function onInit () {
             ctrl.state = new stateFactory('main');
             ctrl.state.setLoading();
-            songsService.getSongs()
+            artistsService.getArtists()
                 .then(function (data) {
-                    ctrl.songs = data;
+                    ctrl.artists = data;
                     ctrl.state.setReady();
                 })
                 .catch(function (error) {
-                    console.error('Could not load songs', error);
+                    console.error('Could not load artists', error);
                     ctrl.state.setError();
             });
         }
 
-        function goToSong (id) {
-            $state.go('app.song', { id: id });
+        function goToArtist (id) {
+            $state.go('app.artist', { id: id });
         }
 
     }

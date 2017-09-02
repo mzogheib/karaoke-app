@@ -30,7 +30,7 @@
         };
     }
 
-    function Controller ($state, stateFactory, songsService) {
+    function Controller ($state, stateFactory, songsService, artistsService) {
         var ctrl = this;
 
         ctrl.save = save;
@@ -45,10 +45,11 @@
             ctrl.headerState = new stateFactory('header');
             ctrl.id = $state.params.id;
 
-            ctrl.isNew = ctrl.isEditing = ctrl.id === 'new';
+            ctrl.isNew = ctrl.id === 'new';
 
             if(ctrl.isNew) {
                 ctrl.song = songsService.initNewSong();
+                getArtists();
             } else {
                 ctrl.state.setLoading();
                 songsService.getSongById(ctrl.id)
@@ -56,8 +57,8 @@
                         ctrl.song = data;
                         ctrl.state.setReady();
                     })
-                    .catch(function () {
-                        console.error('Could not load song');
+                    .catch(function (error) {
+                        console.error('Could not load song', error);
                         ctrl.state.setError();
                     });
             }
@@ -65,11 +66,14 @@
 
         function save () {
             ctrl.headerState.setLoading();
+            var action = ctrl.song._id ? 'update' : 'create';
+
             songsService.save(ctrl.song)
                 .then(function (song) {
-                    if (song.data) {
+                    ctrl.song = song;
+                    if (action === 'create') {
                         // Update the url with the new id
-                        ctrl.id = ctrl.song._id = song.data._id;
+                        ctrl.id = ctrl.song._id;
                         ctrl.isNew = false;
                         $state.go($state.current.name, { id: ctrl.id });
                     }
@@ -98,7 +102,24 @@
         }
 
         function edit () {
-            ctrl.isEditing = true;
+            getArtists();
+        }
+        
+        function getArtists () {
+            ctrl.headerState.setLoading();
+            ctrl.state.setLoading();
+            artistsService.getArtists()
+                .then(function (data) {
+                    ctrl.artists = data;
+                    ctrl.isEditing = true;
+                })
+                .catch(function () {
+                    console.error('Could not delete song');
+                })
+                .finally(function () {
+                    ctrl.headerState.setReady();
+                    ctrl.state.setReady();
+                });
         }
 
         function getHeaderRightText () {

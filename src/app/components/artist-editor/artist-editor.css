@@ -1,0 +1,15 @@
+.artist-editor__wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.artist-editor__artist-icon {
+    font-size: 96px;
+}
+
+.artist-editor__input-container {
+    margin: 25px auto 0;
+    width: 350px !important;
+}

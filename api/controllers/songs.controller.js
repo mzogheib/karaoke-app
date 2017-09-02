@@ -5,145 +5,74 @@ module.exports = {
     create: create,
     update: update,
     delete: deleteOne,
-    getOne: getOne,
+    get: get,
     getAll: getAll
 };
 
-function create (req, res) {
-    Song
-        .create({
-            title: req.body.title,
-            artist: {
-                name: req.body.artist.name
-            },
-            notes: req.body.notes
-        }, function (err, song) {
-            if (err) {
-                console.log('Error creating song');
-                res
-                    .status(400)
-                    .json(err);
-            } else {
-                console.log('Created song');
-                res
-                    .status(201)
-                    .json(song);
-            }
-        });
+function create (song) {
+    return new Promise(function (resolve, reject) {
+        Song
+            .create(song, function (error, song) {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(song);
+                }
+            });
+    });
 }
 
-function update (req, res) {
-    var songId = req.params.id;
-
-    Song
-        .findById(songId)
-        // Exclude artist
-        // .select("-artist")
-        .exec(function (err, doc) {
-            var response = {
-                status: 200,
-                message: doc
-            };
-
-            if (err) {
-                console.log('Error finding song');
-                response.status = 500;
-                response.message = err;
-            } else if (!doc) {
-                response.status = 404;
-                response.message = {
-                    "message": "Song ID not found"
-                };
-            }
-
-            // If the song is found then update it
-            if (response.status === 200) {
-                doc.title = req.body.title;
-                doc.artist.name = req.body.artist.name;
-                doc.notes = req.body.notes;
-
-                doc.save(function (err, songUpdated) {
-                    if (err) {
-                        res
-                            .status(500)
-                            .json(err);
-                    } else {
-                        res
-                            .status(204)
-                            .json();
-                    }
-                });
-            } else {
-                res
-                    .status(response.status)
-                    .json(response.message);
-            }
-        });
+function update (_id, song) {
+    return new Promise(function (resolve, reject) {
+        Song
+            .update({ _id: _id }, song, function (error, songUpdated) {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve();
+                }
+            });
+    });
 }
 
-function deleteOne (req, res) {
-    var songId = req.params.id;
-
-    Song
-        .findByIdAndRemove(songId)
-        .exec(function (err, doc) {
-            var response = {
-                status: 200,
-                message: {}
-            };
-
-            if (err) {
-                response.status = 404;
-                response.message = err;
-            }
-
-            res
-                .status(response.status)
-                .json(response.message);
-        });
+function deleteOne (_id) {
+    return new Promise(function (resolve, reject) {
+        Song
+            .findByIdAndRemove(_id)
+            .exec(function (error) {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve();
+                }
+            });
+    });
 }
 
-function getOne (req, res) {
-    var songId = req.params.id;
-
-    Song
-        .findById(songId)
-        .exec(function (err, doc) {
-            var response = {
-                status: 200,
-                message: doc
-            };
-
-            if (err) {
-                console.log('Error finding song');
-                response.status = 500;
-                response.message = err;
-            } else if (!doc) {
-                response.status = 404;
-                response.message = {
-                    "message": "Song ID not found"
-                };
-            }
-
-            res
-                .status(response.status)
-                .json(response.message);
-        });
+function get (_id) {
+    return new Promise(function (resolve, reject) {
+        Song
+            .findById(_id)
+            .exec(function (error, song) {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(song);
+                }
+            });
+    });
 }
 
-function getAll (req, res) {
-    Song
-        .find()
-        .exec(function (err, songs) {
-            if (err) {
-                console.log('Error finding songs');
-                res
-                    .status(500)
-                    .json(err)
-            } else {
-                console.log('Found songs', songs.length);
-                res
-                    .json(songs);
-            }
-        })
+function getAll () {
+    return new Promise(function (resolve, reject) {
+        Song
+            .find()
+            .exec(function (error, songs) {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(songs);
+                }
+            });
+    });
 }

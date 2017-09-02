@@ -1,4 +1,7 @@
 header(title='Songs')
-songs-list(songs='$ctrl.songs' on-row-click='$ctrl.goToSong(id)')
-add-song-fab
+p(ng-if='$ctrl.state.isLoading()') Loading...
+p(ng-if='$ctrl.state.isError()') Could not load your songs!
+div(ng-if='$ctrl.state.isReady()')
+    songs-list(songs='$ctrl.songs' on-row-click='$ctrl.goToSong(id)')
+    add-song-fab
 footer

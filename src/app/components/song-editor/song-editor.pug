@@ -1,8 +1,19 @@
 .song-editor__wrapper
     i.song-editor__song-icon(class='material-icons') music_note
-    md-input-container.song-editor__input-container
-        label Artist
-        input.song-editor__artist(ng-model='$ctrl.song.artist.name')
+    md-autocomplete.song-editor__input-container(flex required
+            md-input-name="autocompleteField"
+            md-input-minlength="2"
+            md-input-maxlength="18"
+            md-selected-item="$ctrl.selectedArtist"
+            md-selected-item-change="$ctrl.onArtistSelected()"
+            md-search-text="$ctrl.searchText"
+            md-search-text-change="$ctrl.onSearchTextChange()"
+            md-items="artist in $ctrl.querySearch($ctrl.searchText)"
+            md-item-text="artist.name"
+            md-require-match
+            md-floating-label="Artist")
+        md-input-template
+            span(md-highlight-text="$ctrl.searchText") {{ artist.name }}
     md-input-container.song-editor__input-container
         label Song
         input.song-editor__title(ng-model='$ctrl.song.title')

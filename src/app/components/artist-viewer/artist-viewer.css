@@ -1,0 +1,8 @@
+.artist-viewer__wrapper {
+    padding: 10px;
+    text-align: center;
+}
+
+.artist-viewer__artist-icon {
+    font-size: 96px;
+}

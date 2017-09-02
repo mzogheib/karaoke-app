@@ -1,0 +1,9 @@
+p(ng-if='!$ctrl.artists.length') None
+
+md-list(ng-if='$ctrl.artists.length')
+    md-list-item(ng-repeat='artist in $ctrl.artists | orderBy:"name"')
+        md-button(layout='row' flex ng-click='$ctrl.onRowClick({ id: artist._id })')
+            i.artists-list__artist-icon(class='material-icons') portrait
+            span.artists-list__artist-details
+                .artists-list__artist-name {{ ::artist.name }}
+                .artists-list__artist-songs {{ ::$ctrl.songsLabel(artist.songIds) }}

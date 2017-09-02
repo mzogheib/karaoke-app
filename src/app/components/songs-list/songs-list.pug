@@ -1,9 +1,9 @@
 p(ng-if='!$ctrl.songs.length') None
 
 md-list(ng-if='$ctrl.songs.length')
-    md-list-item(ng-repeat='song in $ctrl.songs | orderBy:"artist.name"')
+    md-list-item(ng-repeat='song in $ctrl.songs | orderBy:"artistName"')
         md-button(layout='row' flex ng-click='$ctrl.onRowClick({ id: song._id })')
             i.songs-list__song-icon(class='material-icons') music_note
             span.songs-list__song-details
-                .songs-list__song-artist {{ song.artist.name }}
+                .songs-list__song-artist {{ song.artistName }}
                 .songs-list__song-title {{ song.title }}
