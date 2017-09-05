@@ -84,6 +84,7 @@ function get (_id) {
     return new Promise(function (resolve, reject) {
         Artist
             .findById(_id)
+            .lean()
             .exec(function (error, artist) {
                 if (error) {
                     reject(error);
@@ -112,6 +113,7 @@ function getAll () {
     return new Promise(function (resolve, reject) {
         Artist
             .find()
+            .lean()
             .exec(function (error, artists) {
                 if (error) {
                     reject(error);

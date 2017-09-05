@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 var mongoose = require('mongoose');
 var Song = mongoose.model('Song');
 
@@ -63,10 +65,20 @@ function get (_id) {
     });
 }
 
-function getAll () {
+function getAll (_ids) {
+    var query;
+    if (_ids && _ids.length) {
+        query = {
+            '_id': {
+                $in: _.map(_ids, function (_id) {
+                    return mongoose.Types.ObjectId(_id);
+                })
+            }
+        };
+    }
     return new Promise(function (resolve, reject) {
         Song
-            .find()
+            .find(query)
             .exec(function (error, songs) {
                 if (error) {
                     reject(error);
