@@ -120,8 +120,8 @@ function getAll (req, res) {
             response.status = 200;
             response.message = artists;
         } else {
-            response.status = 404;
-            response.message = "Artists not found";
+            response.status = 200;
+            response.message = [];
         }
     }
 
