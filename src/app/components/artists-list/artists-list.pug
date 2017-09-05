@@ -6,4 +6,4 @@ md-list(ng-if='$ctrl.artists.length')
             i.artists-list__artist-icon(class='material-icons') portrait
             span.artists-list__artist-details
                 .artists-list__artist-name {{ ::artist.name }}
-                .artists-list__artist-songs {{ ::$ctrl.songsLabel(artist.songIds) }}
+                .artists-list__artist-songs {{ ::$ctrl.songsLabel(artist.songs) }}

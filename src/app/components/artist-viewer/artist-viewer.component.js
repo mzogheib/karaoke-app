@@ -16,16 +16,13 @@
         };
     }
 
-    function Controller () {
+    function Controller ($state) {
         var ctrl = this;
 
-        ctrl.$onInit = onInit;
-        ctrl.$onChanges = onChanges;
+        ctrl.goToSong = goToSong;
 
-        function onInit () {
-        }
-
-        function onChanges () {
+        function goToSong (id) {
+            $state.go('app.song', { id: id });
         }
     }
 })();
