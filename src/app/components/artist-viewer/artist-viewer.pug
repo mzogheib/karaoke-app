@@ -1,3 +1,4 @@
 .artist-viewer__wrapper
     i.artist-viewer__artist-icon(class='material-icons') portrait
     h2 {{ $ctrl.artist.name }}
+    songs-list(songs='$ctrl.artist.songs' on-row-click='$ctrl.goToSong(id)')

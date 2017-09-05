@@ -80,6 +80,7 @@ function get (req, res) {
 
     ctrlArtists
         .get(_id)
+        .then(decorate)
         .then(onSuccess)
         .catch(onError)
         .then(respond);
@@ -107,6 +108,7 @@ function get (req, res) {
 function getAll (req, res) {
     ctrlArtists
         .getAll()
+        .then(decorate)
         .then(onSuccess)
         .catch(onError)
         .then(respond);
@@ -118,8 +120,8 @@ function getAll (req, res) {
             response.status = 200;
             response.message = artists;
         } else {
-            response.status = 404;
-            response.message = "Artists not found";
+            response.status = 200;
+            response.message = [];
         }
     }
 
@@ -168,5 +170,37 @@ function deleteOne (req, res) {
     function respond () {
         res.status(response.status).json(response.message);
     }
+}
 
+function decorate (artists) {
+    if (!artists || artists.length === 0) {
+        return;
+    }
+
+    if (artists.length) {
+        var promises = _.map(artists, function (artist) {
+            return decorateOne(artist);
+        });
+        return Promise.all(promises);
+    } else {
+        return decorateOne(artists);
+    }
+}
+
+function decorateOne (artist) {
+    return ctrlSongs
+        .getAll(artist.songIds)
+        .then(function (songs) {
+            artist.songs = _.map(songs, function (song) {
+                return {
+                    _id: song._id,
+                    title: song.title
+                }
+            });
+            delete artist.songIds;
+            return artist;
+        })
+        .catch(function (error) {
+            console.log('error', error)
+        });
 }
